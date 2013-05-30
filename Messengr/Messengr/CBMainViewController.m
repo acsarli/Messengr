@@ -14,10 +14,26 @@
 
 @implementation CBMainViewController
 
-- (void)viewDidLoad
+- (void)viewWillAppear:(BOOL)animated
 {
-    [super viewDidLoad];
+    [super viewWillAppear:animated];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    //Setup the toolbar items
+    
+    //Gear button; Goes on left
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
+    settingsButton.title = @"\u2699";
+    UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
+    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil]; [settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
+    
+    //Contact button; Goes on right
+    UIBarButtonItem *contactButton = [[UIBarButtonItem alloc] initWithTitle:@"Contacts" style:UIBarButtonItemStyleBordered target:self action:@selector(showContacts:)];
+    
+    self.navigationItem.hidesBackButton = YES;
+    self.navigationItem.leftBarButtonItem = settingsButton;
+    self.navigationItem.rightBarButtonItem = contactButton;
+    self.title = @"Messengr";
 }
 
 - (void)didReceiveMemoryWarning

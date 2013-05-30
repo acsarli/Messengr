@@ -10,6 +10,8 @@
 
 @interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate>
 
+@property (strong, nonatomic) IBOutlet UITableView * tv;
+
 - (IBAction)showInfo:(id)sender;
 
 @end
