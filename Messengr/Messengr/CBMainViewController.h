@@ -7,11 +7,19 @@
 //
 
 #import "CBFlipsideViewController.h"
+#import <dispatch/dispatch.h>
+#import "CBPictureCell.h"
 
-@interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate>
+@interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+{
+    dispatch_queue_t backgroundQueue;
+}
 
 @property (strong, nonatomic) IBOutlet UITableView * tv;
 
+@property (strong, nonatomic) NSArray *data;
 - (IBAction)showInfo:(id)sender;
+
+- (void)getData;
 
 @end
