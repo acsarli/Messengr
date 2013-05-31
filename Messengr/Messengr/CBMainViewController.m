@@ -83,13 +83,10 @@
     //Setup the toolbar items
     
     //Gear button; Goes on left
-    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
-    settingsButton.title = @"\u2699";
-    UIFont *f1 = [UIFont fontWithName:@"Helvetica" size:24.0];
-    NSDictionary *dict = [[NSDictionary alloc] initWithObjectsAndKeys:f1, UITextAttributeFont, nil]; [settingsButton setTitleTextAttributes:dict forState:UIControlStateNormal];
-    
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
+       
     //Contact button; Goes on right
-    UIBarButtonItem *contactButton = [[UIBarButtonItem alloc] initWithTitle:@"Contacts" style:UIBarButtonItemStyleBordered target:self action:@selector(showContacts:)];
+    UIBarButtonItem *contactButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"group"] style:UIBarButtonItemStyleBordered target:self action:@selector(showContacts:)];
     
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = settingsButton;
