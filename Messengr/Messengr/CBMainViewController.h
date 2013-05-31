@@ -9,7 +9,7 @@
 #import "CBFlipsideViewController.h"
 #import <dispatch/dispatch.h>
 #import "CBPictureCell.h"
-#import "ViewController.h"
+#import "CBChatViewController.h"
 
 @interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {

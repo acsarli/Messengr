@@ -14,10 +14,17 @@
 
 @implementation CBFlipsideViewController
 
+#pragma mark -Table View Methods
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    
+    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
+    self.navigationItem.title = @"Settings";
+    [self.navigationItem setLeftBarButtonItem:doneButton];
 }
 
 - (void)didReceiveMemoryWarning
@@ -30,7 +37,7 @@
 
 - (IBAction)done:(id)sender
 {
-    [self.delegate flipsideViewControllerDidFinish:self];
+    [self.delegate flipsideViewControllerDidFinish:self.navigationController];
 }
 
 @end

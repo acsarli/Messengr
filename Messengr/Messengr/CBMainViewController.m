@@ -41,7 +41,7 @@
 {
     //TODO: Put API calls here?
     //TODO: Push Conversation screen
-    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    CBChatViewController *vc = [[CBChatViewController alloc] initWithNibName:@"ViewController" bundle:nil];
     [self.navigationController pushViewController:vc animated:YES];
      
 }
@@ -65,7 +65,7 @@
 -(void) getDataFromServer;
 {
     self.data = [NSArray arrayWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys:@"Adrian", @"name", nil], nil];
+                 [NSDictionary dictionaryWithObjectsAndKeys:@"Adrian Sarli", @"name", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"Tim Taylor", @"name", nil], nil];
 }
 #pragma mark - UIViewController Methods
 -(void)viewDidLoad
@@ -114,8 +114,10 @@
 {    
     CBFlipsideViewController *controller = [[CBFlipsideViewController alloc] initWithNibName:@"CBFlipsideViewController" bundle:nil];
     controller.delegate = self;
-    controller.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
-    [self presentViewController:controller animated:YES completion:nil];
+    
+    UINavigationController *nc = [[UINavigationController alloc] initWithRootViewController:controller];
+    nc.modalTransitionStyle = UIModalTransitionStyleFlipHorizontal;
+    [self presentViewController:nc animated:YES completion:nil];
 }
 
 @end

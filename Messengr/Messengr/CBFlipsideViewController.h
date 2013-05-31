@@ -14,8 +14,9 @@
 - (void)flipsideViewControllerDidFinish:(CBFlipsideViewController *)controller;
 @end
 
-@interface CBFlipsideViewController : UIViewController
+@interface CBFlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
+@property (weak, nonatomic) IBOutlet UITableView * settingsTable;
 @property (weak, nonatomic) id <CBFlipsideViewControllerDelegate> delegate;
 
 - (IBAction)done:(id)sender;
