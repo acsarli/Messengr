@@ -9,6 +9,7 @@
 #import "CBFlipsideViewController.h"
 #import <dispatch/dispatch.h>
 #import "CBPictureCell.h"
+#import "ViewController.h"
 
 @interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
 {

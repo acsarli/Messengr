@@ -41,8 +41,9 @@
 {
     //TODO: Put API calls here?
     //TODO: Push Conversation screen
-    
-    
+    ViewController *vc = [[ViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    [self.navigationController pushViewController:vc animated:YES];
+     
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
