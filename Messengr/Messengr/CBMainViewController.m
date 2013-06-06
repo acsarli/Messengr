@@ -69,29 +69,54 @@
     self.socket = [[SocketIO alloc] initWithDelegate:self];
     ///'self.socketIO.useSecure = YES;
     [self.socket connectToHost:@"198.199.72.88" onPort:8080];
-    
+
 }
 - (void) socketIODidConnect:(SocketIO *)socket;
 {
     NSLog(@"Connected");
     [self refreshData];
-    [NSTimer scheduledTimerWithTimeInterval:20.0
+    [NSTimer scheduledTimerWithTimeInterval:200.0
                                      target:self
                                    selector:@selector(refreshData)
                                    userInfo:nil
                                     repeats:YES];
     
+    [self registerName];
 }
+- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error {
+    NSLog(@"Disconnected... sleeping for 30 seconds");
+    [self performSelectorInBackground:@selector(reconnect) withObject:nil];
+}
+
+- (void) reconnect {
+    [NSThread sleepForTimeInterval:15];
+    [self.socket disconnect];
+    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
+}
+/*- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
+{
+    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
+}
+- (void) socketIO:(SocketIO *)socket failedToConnectWithError:(NSError *)error __attribute__((deprecated));
+{
+    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
+}*/
+
 -(void) refreshData
 {
     [self.socket sendEvent:@"allusers" withData:nil];
 }
+
 -(void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
     if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
     {
-        self.data = [[packet args] objectAtIndex:0];
+        self.data = [[[packet args] objectAtIndex:0] mutableCopy];
+        if ([self.data objectForKey:self.ourName])
+            [self.data removeObjectForKey:self.ourName];
+        
         [self.tv reloadData];
+        return;
     }
     //Make sure this is a chat update and not from us
     if([packet.name isEqualToString:@"updatechat"] && [[packet args] count] > 1 && ![[[packet args] objectAtIndex:0] isEqualToString:self.ourName])
