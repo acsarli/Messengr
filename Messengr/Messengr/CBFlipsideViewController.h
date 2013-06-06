@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
 @class CBFlipsideViewController;
 
@@ -14,7 +15,7 @@
 - (void)flipsideViewControllerDidFinish:(CBFlipsideViewController *)controller;
 @end
 
-@interface CBFlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface CBFlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView * settingsTable;
 @property (weak, nonatomic) id <CBFlipsideViewControllerDelegate> delegate;

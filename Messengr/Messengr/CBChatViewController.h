@@ -10,8 +10,11 @@
 
 #import <UIKit/UIKit.h>
 #import "UIBubbleTableViewDataSource.h"
-
-@interface CBChatViewController : UIViewController <UIBubbleTableViewDataSource>
+#import "SocketIO.h"
+@interface CBChatViewController : UIViewController <UIBubbleTableViewDataSource, SocketIODelegate>
 
 @property NSMutableArray *chatData;
+@property SocketIO *socketIO;
+@property NSString *name;
+@property NSString *chatWith;
 @end

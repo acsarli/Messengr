@@ -7,11 +7,10 @@
 //
 
 #import "CBMainViewController.h"
-
+#import "SocketIOPacket.h"
 
 @interface CBMainViewController ()
     //Private methods
--(void) getDataFromServer;
 @end
 
 @implementation CBMainViewController
@@ -30,7 +29,7 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CBPictureCell" owner:nil options:nil] objectAtIndex:0];
     
     //Use the cell
-    cell.titleView.text = [(NSDictionary *)[self.data objectAtIndex:indexPath.row] objectForKey:@"name"];
+    cell.titleView.text = [[(NSDictionary *)[self.data objectAtIndex:indexPath.row] allKeys] objectAtIndex:0];
     
     //TODO: Figure out image... Ask Tim.
     
@@ -41,7 +40,9 @@
 {
     //TODO: Put API calls here?
     //TODO: Push Conversation screen
-    CBChatViewController *vc = [[CBChatViewController alloc] initWithNibName:@"ViewController" bundle:nil];
+    CBChatViewController *vc = [[CBChatViewController alloc] initWithNibName:@"CBChatViewController" bundle:nil];
+    vc.name = self.ourName;
+    
     [self.navigationController pushViewController:vc animated:YES];
      
 }
@@ -52,25 +53,47 @@
 #pragma mark - Data/API Stuff
 - (void)getData
 {
-    //Do the magic stuff to get the data. Simulated for now
-    dispatch_async(backgroundQueue, ^(void) {
-        [self getDataFromServer];
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [self.tv reloadData];
-        });
-    });
+    //Connect to server
+    self.socket = [[SocketIO alloc] initWithDelegate:self];
+    ///'self.socketIO.useSecure = YES;
+    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
+    
+}
+- (void) socketIODidConnect:(SocketIO *)socket;
+{
+    NSLog(@"Connected");
+    [self refreshData];
+    [NSTimer scheduledTimerWithTimeInterval:20.0
+                                     target:self
+                                   selector:@selector(refreshData)
+                                   userInfo:nil
+                                    repeats:YES];
+    
+}
+-(void) refreshData
+{
+    [self.socket sendEvent:@"allusers" withData:nil];
+}
+-(void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
+{
+    if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
+    {
+        self.data = [packet args];
+        [self.tv reloadData];
+    }
 }
 
-//This is called in the background from GCD. DO NOT CALL! IT WILL BLOCK!
--(void) getDataFromServer;
+-(void)registerName
 {
-    self.data = [NSArray arrayWithObjects:
-                 [NSDictionary dictionaryWithObjectsAndKeys:@"Adrian Sarli", @"name", nil], [NSDictionary dictionaryWithObjectsAndKeys:@"Tim Taylor", @"name", nil], nil];
+    if ([self.socket isConnected])
+        [self.socket sendEvent:@"adduser" withData:self.ourName];
 }
+
 #pragma mark - UIViewController Methods
 -(void)viewDidLoad
 {
     backgroundQueue = dispatch_queue_create("com.adriansarli.bgqueue", NULL);
+    self.ourName = nil;
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -92,8 +115,17 @@
     self.navigationItem.leftBarButtonItem = settingsButton;
     self.navigationItem.rightBarButtonItem = contactButton;
     self.title = @"Messengr";
+    
+    if (self.ourName == nil) {
+        UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter a name:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        [alert show];
+    }
 }
-
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
+    self.ourName = [[alertView textFieldAtIndex:0] text];
+    [self registerName];
+}
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];

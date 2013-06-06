@@ -18,6 +18,8 @@
 #import "UIBubbleTableView.h"
 #import "UIBubbleTableViewDataSource.h"
 #import "NSBubbleData.h"
+#import "SocketIO.h"
+#import "SocketIOPacket.h"
 
 @interface CBChatViewController ()
 {
@@ -61,6 +63,29 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
+    //Connect to server
+    self.socketIO = [[SocketIO alloc] initWithDelegate:self];
+    ///'self.socketIO.useSecure = YES;
+    [self.socketIO connectToHost:@"198.199.72.88" onPort:8080];
+    
+    
+}
+- (void) socketIODidConnect:(SocketIO *)socket;
+{
+    NSLog(@"Connected");
+    [self.socketIO sendEvent:@"adduser" withData:self.name];
+    [self.socketIO sendEvent:@"chatwith" withData:self.chatWith];
+}
+- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet;
+{
+    NSLog(@"%@: %@", packet.name, [packet data]);
+    if([packet.name isEqualToString:@"updatechat"] && [[packet args] count] > 1 && ![[[packet args] objectAtIndex:0] isEqualToString:self.name])
+        [self messageReceived:[[packet args] objectAtIndex:1]];
+}
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -116,11 +141,11 @@
     }];
 }
 
-- (void)messageReceived:(id)sender
+- (void)messageReceived:(NSString *)string
 {
     bubbleTable.typingBubble = NSBubbleTypingTypeNobody;
     
-    NSBubbleData *sayBubble = [NSBubbleData dataWithText:textField.text date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+    NSBubbleData *sayBubble = [NSBubbleData dataWithText:string date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
 }
@@ -129,15 +154,18 @@
 
 - (IBAction)sayPressed:(id)sender
 {
-    //TODO: API Call. Send it to the server.
+
     bubbleTable.typingBubble = NSBubbleTypingTypeNobody;
 
     NSBubbleData *sayBubble = [NSBubbleData dataWithText:textField.text date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeMine];
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
     
+    [self.socketIO sendEvent:@"sendchat" withData:textField.text];
+
     textField.text = @"";
     [textField resignFirstResponder];
+    
 }
 
 /* NSBubbleData *heyBubble = [NSBubbleData dataWithText:@"Hey, halloween is soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];

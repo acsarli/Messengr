@@ -10,8 +10,8 @@
 #import <dispatch/dispatch.h>
 #import "CBPictureCell.h"
 #import "CBChatViewController.h"
-
-@interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate, UITableViewDataSource, UITableViewDelegate>
+#import "SocketIO.h"
+@interface CBMainViewController : UIViewController <CBFlipsideViewControllerDelegate, UITableViewDataSource, UITableViewDelegate, SocketIODelegate>
 {
     dispatch_queue_t backgroundQueue;
 }
@@ -19,7 +19,10 @@
 @property (strong, nonatomic) IBOutlet UITableView * tv;
 
 @property (strong, nonatomic) NSArray *data;
+@property (strong, nonatomic) NSString *ourName;
+@property SocketIO *socket;
 - (IBAction)showInfo:(id)sender;
+-(void) registerName;
 
 - (void)getData;
 
