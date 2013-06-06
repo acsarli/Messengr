@@ -8,6 +8,7 @@
 
 #import "CBMainViewController.h"
 #import "SocketIOPacket.h"
+#import "NSBubbleData.h"
 
 @interface CBMainViewController ()
     //Private methods
@@ -40,11 +41,20 @@
 {
     //TODO: Put API calls here?
     //TODO: Push Conversation screen
-    CBChatViewController *vc = [[CBChatViewController alloc] initWithNibName:@"CBChatViewController" bundle:nil];
-    vc.name = self.ourName;
-    
-    [self.navigationController pushViewController:vc animated:YES];
-     
+    NSString *nameToTalkTo = [[(NSDictionary *)[self.data objectAtIndex:indexPath.row] allKeys] objectAtIndex:0];
+    if([self.vcs objectForKey:nameToTalkTo])
+        [self.navigationController pushViewController:[self.vcs objectForKey:nameToTalkTo] animated:YES];
+    else
+    {
+        CBChatViewController *vc = [[CBChatViewController alloc] initWithNibName:@"CBChatViewController" bundle:nil];
+        vc.name = self.ourName;
+        vc.chatWith = nameToTalkTo;
+        vc.chatData = [self.chatData objectForKey:nameToTalkTo];
+        vc.socketIO = self.socket;
+        
+        [self.vcs setObject:vc forKey:nameToTalkTo];
+        [self.navigationController pushViewController:vc animated:YES];
+    }    
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -81,6 +91,26 @@
         self.data = [packet args];
         [self.tv reloadData];
     }
+    //Make sure this is a chat update and not from us
+    if([packet.name isEqualToString:@"updatechat"] && [[packet args] count] > 1 && ![[[packet args] objectAtIndex:0] isEqualToString:self.ourName])
+    {
+        //Add it to the appropriate chat data
+        //First get the name of the sender
+        NSString *senderName = [[packet args] objectAtIndex:0];
+        NSString *message = [[packet args] objectAtIndex:1];
+        //Check for vc
+        if ([self.vcs objectForKey:senderName])
+            [[self.vcs objectForKey:senderName] messageReceived:message];
+        else //Add it to the right chatData
+        {
+            //Make sure the chat data exists
+            if(![self.chatData objectForKey:senderName])
+                [self.chatData setObject:[NSMutableArray array] forKey:senderName];
+            
+            NSBubbleData *sayBubble = [NSBubbleData dataWithText:message date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+            [[self.chatData objectForKey:senderName] addObject:sayBubble];
+        }
+    }
 }
 
 -(void)registerName
@@ -93,7 +123,9 @@
 -(void)viewDidLoad
 {
     backgroundQueue = dispatch_queue_create("com.adriansarli.bgqueue", NULL);
+    self.chatData = [[NSMutableDictionary alloc] init];
     self.ourName = nil;
+    self.vcs = [[NSMutableArray alloc] init];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -130,6 +162,7 @@
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+    self.vcs = [[NSMutableDictionary alloc] init];
 }
 
 #pragma mark - Flipside View

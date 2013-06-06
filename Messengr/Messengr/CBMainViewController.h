@@ -20,6 +20,8 @@
 
 @property (strong, nonatomic) NSArray *data;
 @property (strong, nonatomic) NSString *ourName;
+@property NSMutableDictionary * chatData;
+@property NSMutableDictionary *vcs;
 @property SocketIO *socket;
 - (IBAction)showInfo:(id)sender;
 -(void) registerName;

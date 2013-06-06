@@ -17,4 +17,6 @@
 @property SocketIO *socketIO;
 @property NSString *name;
 @property NSString *chatWith;
+
+- (void)messageReceived:(NSString *)string;
 @end

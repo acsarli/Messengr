@@ -76,12 +76,7 @@
     [self.socketIO sendEvent:@"adduser" withData:self.name];
     [self.socketIO sendEvent:@"chatwith" withData:self.chatWith];
 }
-- (void) socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet;
-{
-    NSLog(@"%@: %@", packet.name, [packet data]);
-    if([packet.name isEqualToString:@"updatechat"] && [[packet args] count] > 1 && ![[[packet args] objectAtIndex:0] isEqualToString:self.name])
-        [self messageReceived:[[packet args] objectAtIndex:1]];
-}
+
 -(void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
