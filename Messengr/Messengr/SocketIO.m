@@ -484,6 +484,7 @@ NSString* const SocketIOException = @"SocketIOException";
                     NSDictionary *json = [packet dataAsJSON];
                     packet.name = [json objectForKey:@"name"];
                     packet.args = [json objectForKey:@"args"];
+                    NSLog(@"packet.arg1 = %@", NSStringFromClass([[packet.args objectAtIndex:0] class]));
                     if ([_delegate respondsToSelector:@selector(socketIO:didReceiveEvent:)]) {
                         [_delegate socketIO:self didReceiveEvent:packet];
                     }

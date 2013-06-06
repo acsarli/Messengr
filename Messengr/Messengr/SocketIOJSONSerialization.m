@@ -58,10 +58,10 @@ extern NSString * const SocketIOException;
     }
     
     // try Foundation's JSON coder, available in OS X 10.7/iOS 5.0
-    serializer = NSClassFromString(@"NSJSONSerialization");
-    if (serializer) {
-        return [serializer JSONObjectWithData:data options:0 error:error];
-    }
+   // serializer = NSClassFromString(@"NSJSONSerialization");
+    //if (serializer) {
+      //  return [serializer JSONObjectWithData:data options:0 error:error];
+    //}
     
     // lastly, try JSONKit
     serializer = NSClassFromString(@"JSONDecoder");

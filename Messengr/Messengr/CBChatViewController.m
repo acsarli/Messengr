@@ -62,19 +62,8 @@
     // Keyboard events
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
-    //Connect to server
-    self.socketIO = [[SocketIO alloc] initWithDelegate:self];
-    ///'self.socketIO.useSecure = YES;
-    [self.socketIO connectToHost:@"198.199.72.88" onPort:8080];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];  
     
-    
-}
-- (void) socketIODidConnect:(SocketIO *)socket;
-{
-    NSLog(@"Connected");
-    [self.socketIO sendEvent:@"adduser" withData:self.name];
-    [self.socketIO sendEvent:@"chatwith" withData:self.chatWith];
 }
 
 -(void)viewWillAppear:(BOOL)animated
@@ -156,6 +145,7 @@
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
     
+    [self.socketIO sendEvent:@"chatwith" withData:self.chatWith];
     [self.socketIO sendEvent:@"sendchat" withData:textField.text];
 
     textField.text = @"";

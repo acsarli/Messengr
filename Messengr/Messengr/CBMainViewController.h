@@ -18,7 +18,7 @@
 
 @property (strong, nonatomic) IBOutlet UITableView * tv;
 
-@property (strong, nonatomic) NSArray *data;
+@property (strong, nonatomic) NSMutableDictionary *data;
 @property (strong, nonatomic) NSString *ourName;
 @property NSMutableDictionary * chatData;
 @property NSMutableDictionary *vcs;

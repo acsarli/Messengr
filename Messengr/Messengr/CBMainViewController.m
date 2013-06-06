@@ -30,7 +30,9 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CBPictureCell" owner:nil options:nil] objectAtIndex:0];
     
     //Use the cell
-    cell.titleView.text = [[(NSDictionary *)[self.data objectAtIndex:indexPath.row] allKeys] objectAtIndex:0];
+    if ([[self.data  allKeys] count] < 1)
+        return cell;
+    cell.titleView.text = [[self.data allKeys] objectAtIndex:indexPath.row];
     
     //TODO: Figure out image... Ask Tim.
     
@@ -41,7 +43,7 @@
 {
     //TODO: Put API calls here?
     //TODO: Push Conversation screen
-    NSString *nameToTalkTo = [[(NSDictionary *)[self.data objectAtIndex:indexPath.row] allKeys] objectAtIndex:0];
+    NSString *nameToTalkTo = [[self.data allKeys] objectAtIndex:indexPath.row];
     if([self.vcs objectForKey:nameToTalkTo])
         [self.navigationController pushViewController:[self.vcs objectForKey:nameToTalkTo] animated:YES];
     else
@@ -88,7 +90,7 @@
 {
     if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
     {
-        self.data = [packet args];
+        self.data = [[packet args] objectAtIndex:0];
         [self.tv reloadData];
     }
     //Make sure this is a chat update and not from us
@@ -125,7 +127,7 @@
     backgroundQueue = dispatch_queue_create("com.adriansarli.bgqueue", NULL);
     self.chatData = [[NSMutableDictionary alloc] init];
     self.ourName = nil;
-    self.vcs = [[NSMutableArray alloc] init];
+    self.vcs = [[NSMutableDictionary alloc] init];
 }
 - (void)viewWillAppear:(BOOL)animated
 {
