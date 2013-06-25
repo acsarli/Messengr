@@ -9,7 +9,8 @@
 #import "CBAppDelegate.h"
 
 #import "CBMainViewController.h"
-
+#import "TMAPIClient.h"
+#import "SocketIO.h"
 @implementation CBAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
@@ -21,9 +22,21 @@
     
     self.window.rootViewController = self.navController;
     [self.window makeKeyAndVisible];
+    
+    [TMAPIClient sharedInstance].OAuthConsumerKey = @"BGJp5fgJmBPFkyv5XeqhmItNPcxj9AH2pbgJ4S2UuZzRPGOFxS";
+    [TMAPIClient sharedInstance].OAuthConsumerSecret = @"TjRO9vo07zk5S7SAeFA9NEVBEo7gead6nOxE6whsNdPO0zb6s8";
+    
+    [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
+        //Name ourselves
+        [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:nil];
+    }];
+    
     return YES;
 }
-
+- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication
+         annotation:(id)annotation {
+    return [[TMAPIClient sharedInstance] handleOpenURL:url];
+}
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.

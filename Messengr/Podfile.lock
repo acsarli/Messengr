@@ -1,0 +1,29 @@
+PODS:
+  - JXHTTP (1.0.0)
+  - NSData+Base64 (1.0.0)
+  - TMTumblrSDK (1.0.2):
+    - TMTumblrSDK/Activity
+    - TMTumblrSDK/APIClient
+    - TMTumblrSDK/AppClient
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/Activity (1.0.2)
+  - TMTumblrSDK/APIClient (1.0.2):
+    - JXHTTP (= 1.0.0)
+    - TMTumblrSDK/APIClient/Authentication
+  - TMTumblrSDK/APIClient/Authentication (1.0.2):
+    - JXHTTP (= 1.0.0)
+    - NSData+Base64 (= 1.0)
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/AppClient (1.0.2):
+    - TMTumblrSDK/Core
+  - TMTumblrSDK/Core (1.0.2)
+
+DEPENDENCIES:
+  - TMTumblrSDK
+
+SPEC CHECKSUMS:
+  JXHTTP: 04f027e55c252d206cf3fcc2a2bde3914a35d842
+  NSData+Base64: 36c4e5b6479259c1a68866ccd2a8dd385c9744f7
+  TMTumblrSDK: 8d7f7bfb2df2c3e75e90e40703412f4049282117
+
+COCOAPODS: 0.20.2

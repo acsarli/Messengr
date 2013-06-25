@@ -67,6 +67,7 @@
 		0DB88BC31760BA5900019247 /* SBJsonStreamWriterAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BB71760BA5900019247 /* SBJsonStreamWriterAccumulator.m */; };
 		0DB88BC41760BA5900019247 /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BB91760BA5900019247 /* SBJsonStreamWriterState.m */; };
 		0DB88BC51760BA5900019247 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BBB1760BA5900019247 /* SBJsonWriter.m */; };
+		2DF7BBA342F04BA19C14CEDB /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12975312DF594FBDA50BAD8D /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -166,6 +167,8 @@
 		0DB88BB91760BA5900019247 /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
 		0DB88BBA1760BA5900019247 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		0DB88BBB1760BA5900019247 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		12975312DF594FBDA50BAD8D /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		BEF057EC58104D97A5467736 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -180,6 +183,7 @@
 				0D75A8D1175773B700D401DA /* UIKit.framework in Frameworks */,
 				0D75A8D3175773B700D401DA /* Foundation.framework in Frameworks */,
 				0D75A8D5175773B700D401DA /* CoreGraphics.framework in Frameworks */,
+				2DF7BBA342F04BA19C14CEDB /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -239,14 +243,15 @@
 				0DAEF1D8175F667000C2EBBC /* Security.framework */,
 				0DAEF1D6175F666400C2EBBC /* CFNetwork.framework */,
 				0DAEF1D4175F665A00C2EBBC /* libicucore.dylib */,
-				0D0BF7D7175F60E1000FE0F9 /* Socket-IO */,
 				0D0BF7D5175F4D94000FE0F9 /* MessageUI.framework */,
 				0D9D0BE617594B4E00EF5D4C /* Default-568h@2x.png */,
 				0D9D0BE417594B3700EF5D4C /* Default@2x.png */,
 				0D9D0BE217594B1700EF5D4C /* Default.png */,
+				0D0BF7D7175F60E1000FE0F9 /* Socket-IO */,
 				0D75A8D6175773B700D401DA /* Messengr */,
 				0D75A8CF175773B700D401DA /* Frameworks */,
 				0D75A8CE175773B700D401DA /* Products */,
+				BEF057EC58104D97A5467736 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -264,6 +269,7 @@
 				0D75A8D0175773B700D401DA /* UIKit.framework */,
 				0D75A8D2175773B700D401DA /* Foundation.framework */,
 				0D75A8D4175773B700D401DA /* CoreGraphics.framework */,
+				12975312DF594FBDA50BAD8D /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -344,9 +350,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0D75A8F6175773B800D401DA /* Build configuration list for PBXNativeTarget "Messengr" */;
 			buildPhases = (
+				BE4FD4D8CBE644F1A45FB2BA /* Check Pods Manifest.lock */,
 				0D75A8C9175773B700D401DA /* Sources */,
 				0D75A8CA175773B700D401DA /* Frameworks */,
 				0D75A8CB175773B700D401DA /* Resources */,
+				B02828E89F574A0AAF2076B9 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -417,6 +425,37 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		B02828E89F574A0AAF2076B9 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+		};
+		BE4FD4D8CBE644F1A45FB2BA /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		0D75A8C9175773B700D401DA /* Sources */ = {
@@ -497,7 +536,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -512,6 +552,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
+				PROVISIONING_PROFILE = "5900AF9C-7C05-44D2-9943-4CF2BC515515";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5900AF9C-7C05-44D2-9943-4CF2BC515515";
 				SDKROOT = iphoneos;
 			};
 			name = Debug;
@@ -528,7 +570,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -536,6 +579,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				PROVISIONING_PROFILE = "5900AF9C-7C05-44D2-9943-4CF2BC515515";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "5900AF9C-7C05-44D2-9943-4CF2BC515515";
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -543,10 +588,12 @@
 		};
 		0D75A8F7175773B800D401DA /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEF057EC58104D97A5467736 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Messengr/Messengr-Prefix.pch";
 				INFOPLIST_FILE = "Messengr/Messengr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -554,10 +601,12 @@
 		};
 		0D75A8F8175773B800D401DA /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BEF057EC58104D97A5467736 /* Pods.xcconfig */;
 			buildSettings = {
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Messengr/Messengr-Prefix.pch";
 				INFOPLIST_FILE = "Messengr/Messengr-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

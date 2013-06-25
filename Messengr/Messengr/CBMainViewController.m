@@ -9,6 +9,7 @@
 #import "CBMainViewController.h"
 #import "SocketIOPacket.h"
 #import "NSBubbleData.h"
+#import "TMAPIClient.h"
 
 @interface CBMainViewController ()
     //Private methods
@@ -109,7 +110,7 @@
 
 -(void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
-    if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
+    if([packet.name isEqualToString:@"updatecontacts"] && [[packet args] count] > 0)
     {
         self.data = [[[packet args] objectAtIndex:0] mutableCopy];
         if ([self.data objectForKey:self.ourName])
@@ -138,12 +139,19 @@
             [[self.chatData objectForKey:senderName] addObject:sayBubble];
         }
     }
+    if([packet.name isEqualToString:@"name"])
+    {
+        self.ourName = [packet.args objectAtIndex:0];
+        [self registerName];
+    }
 }
 
 -(void)registerName
 {
     if ([self.socket isConnected])
+    {
         [self.socket sendEvent:@"adduser" withData:self.ourName];
+    }
 }
 
 #pragma mark - UIViewController Methods
@@ -153,6 +161,7 @@
     self.chatData = [[NSMutableDictionary alloc] init];
     self.ourName = nil;
     self.vcs = [[NSMutableDictionary alloc] init];
+    [self getData]; //Only call this once,please!
 }
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -160,7 +169,7 @@
 	// Do any additional setup after loading the view, typically from a nib.
     
     //Get the data
-    [self getData];
+    //[self getData];
     
     //Setup the toolbar items
     
@@ -175,11 +184,11 @@
     self.navigationItem.rightBarButtonItem = contactButton;
     self.title = @"Messengr";
     
-    if (self.ourName == nil) {
+    /*if (self.ourName == nil) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter a name:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [alert show];
-    }
+    }*/
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     self.ourName = [[alertView textFieldAtIndex:0] text];
