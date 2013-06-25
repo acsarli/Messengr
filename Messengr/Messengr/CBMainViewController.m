@@ -10,6 +10,7 @@
 #import "SocketIOPacket.h"
 #import "NSBubbleData.h"
 #import "TMAPIClient.h"
+#import "NSData+Conversion.h"
 
 @interface CBMainViewController ()
     //Private methods
@@ -76,6 +77,8 @@
 {
     NSLog(@"Connected");
     [self refreshData];
+
+    
     [NSTimer scheduledTimerWithTimeInterval:200.0
                                      target:self
                                    selector:@selector(refreshData)
@@ -110,7 +113,7 @@
 
 -(void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
-    if([packet.name isEqualToString:@"updatecontacts"] && [[packet args] count] > 0)
+    if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
     {
         self.data = [[[packet args] objectAtIndex:0] mutableCopy];
         if ([self.data objectForKey:self.ourName])
@@ -151,6 +154,7 @@
     if ([self.socket isConnected])
     {
         [self.socket sendEvent:@"adduser" withData:self.ourName];
+            [self.socket sendEvent:@"registerDevice" withData:[[[NSUserDefaults standardUserDefaults] objectForKey:@"devicetoken"] hexadecimalString]];
     }
 }
 

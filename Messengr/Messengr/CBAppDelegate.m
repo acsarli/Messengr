@@ -15,6 +15,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    
+    // Let the device know we want to receive push notifications
+	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:
+     (UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)];
+//    [[UIApplication sharedApplication] unregisterForRemoteNotifications];
+
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
     self.mainViewController = [[CBMainViewController alloc] initWithNibName:@"CBMainViewController" bundle:nil];
@@ -37,6 +44,19 @@
          annotation:(id)annotation {
     return [[TMAPIClient sharedInstance] handleOpenURL:url];
 }
+
+- (void)application:(UIApplication*)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData*)deviceToken
+{
+	NSLog(@"My token is: %@", deviceToken);
+    //Save
+    [[NSUserDefaults standardUserDefaults] setObject:deviceToken forKey:@"devicetoken"];
+}
+
+- (void)application:(UIApplication*)application didFailToRegisterForRemoteNotificationsWithError:(NSError*)error
+{
+	NSLog(@"Failed to get token, error: %@", error);
+}
+
 - (void)applicationWillResignActive:(UIApplication *)application
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
