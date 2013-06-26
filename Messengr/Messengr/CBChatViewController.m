@@ -36,7 +36,8 @@
 {
     [super viewDidLoad];
     //Initialize variables
-    self.chatData = [[NSMutableArray alloc] init];
+    if(self.chatData == nil)
+        self.chatData = [[NSMutableArray alloc] init];
        
     // The line below sets the snap interval in seconds. This defines how the bubbles will be grouped in time.
     // Interval of 120 means that if the next messages comes in 2 minutes since the last message, it will be added into the same group.
