@@ -47,7 +47,7 @@
     // The line below enables avatar support. Avatar can be specified for each bubble with .avatar property of NSBubbleData.
     // Avatars are enabled for the whole table at once. If particular NSBubbleData misses the avatar, a default placeholder will be set (missingAvatar.png)
     
-    bubbleTable.showAvatars = YES;
+    bubbleTable.showAvatars = NO;
     
     // Uncomment the line below to add "Now typing" bubble
     // Possible values are
@@ -55,7 +55,7 @@
     //    - NSBubbleTypingTypeMe - shows "now typing" bubble on the right
     //    - NSBubbleTypingTypeNone - no "now typing" bubble
     
-    bubbleTable.typingBubble = NSBubbleTypingTypeSomebody;
+    //bubbleTable.typingBubble = NSBubbleTypingTypeNone;
     
     [bubbleTable reloadData];
     
@@ -68,6 +68,7 @@
 
 -(void)viewWillAppear:(BOOL)animated
 {
+    self.navigationItem.title = self.chatWith;
     [super viewWillAppear:animated];
 
 }
