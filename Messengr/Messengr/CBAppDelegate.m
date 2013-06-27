@@ -34,6 +34,11 @@
     [TMAPIClient sharedInstance].OAuthConsumerSecret = @"TjRO9vo07zk5S7SAeFA9NEVBEo7gead6nOxE6whsNdPO0zb6s8";
     
     [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
+        if (error != nil) {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Authenticate With Tumblr" message:@"You must allow this app to see your Tumblr account to use it." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [alert show];
+        }
+        
         //Name ourselves
         SocketIOCallback cb = ^(id argsData) {
             [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];

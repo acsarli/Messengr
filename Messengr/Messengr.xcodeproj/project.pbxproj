@@ -58,6 +58,8 @@
 		0DAEF1D9175F667000C2EBBC /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0DAEF1D8175F667000C2EBBC /* Security.framework */; };
 		0DAEF1DA175F66D900C2EBBC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D75A8DC175773B800D401DA /* main.m */; };
 		0DB2B76F177A2EE30016E212 /* NSData+Conversion.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2B76E177A2EE30016E212 /* NSData+Conversion.m */; };
+		0DB2B771177CD01F0016E212 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2B770177CD01F0016E212 /* Icon@2x.png */; };
+		0DB2B773177CD0510016E212 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2B772177CD0510016E212 /* Icon.png */; };
 		0DB88BBC1760BA5900019247 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BA91760BA5900019247 /* SBJsonParser.m */; };
 		0DB88BBD1760BA5900019247 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BAB1760BA5900019247 /* SBJsonStreamParser.m */; };
 		0DB88BBE1760BA5900019247 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BAD1760BA5900019247 /* SBJsonStreamParserAccumulator.m */; };
@@ -149,6 +151,8 @@
 		0DAEF1D8175F667000C2EBBC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		0DB2B76D177A2EE30016E212 /* NSData+Conversion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSData+Conversion.h"; sourceTree = "<group>"; };
 		0DB2B76E177A2EE30016E212 /* NSData+Conversion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSData+Conversion.m"; sourceTree = "<group>"; };
+		0DB2B770177CD01F0016E212 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Icon@2x.png"; sourceTree = "<group>"; };
+		0DB2B772177CD0510016E212 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Icon.png; sourceTree = "<group>"; };
 		0DB88BA71760BA5800019247 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
 		0DB88BA81760BA5900019247 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		0DB88BA91760BA5900019247 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -243,6 +247,8 @@
 		0D75A8C4175773B700D401DA = {
 			isa = PBXGroup;
 			children = (
+				0DB2B772177CD0510016E212 /* Icon.png */,
+				0DB2B770177CD01F0016E212 /* Icon@2x.png */,
 				0DAEF1D8175F667000C2EBBC /* Security.framework */,
 				0DAEF1D6175F666400C2EBBC /* CFNetwork.framework */,
 				0DAEF1D4175F665A00C2EBBC /* libicucore.dylib */,
@@ -426,6 +432,8 @@
 				0D9D0BED175951D200EF5D4C /* gear@2x.png in Resources */,
 				0D9D0BEE175951D200EF5D4C /* group.png in Resources */,
 				0D9D0BEF175951D200EF5D4C /* group@2x.png in Resources */,
+				0DB2B771177CD01F0016E212 /* Icon@2x.png in Resources */,
+				0DB2B773177CD0510016E212 /* Icon.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
