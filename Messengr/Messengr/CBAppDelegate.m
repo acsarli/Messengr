@@ -35,7 +35,10 @@
     
     [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
         //Name ourselves
-        [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:nil];
+        SocketIOCallback cb = ^(id argsData) {
+            [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];
+        };
+        [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
     }];
     
     return YES;

@@ -32,20 +32,35 @@
         cell = [[[NSBundle mainBundle] loadNibNamed:@"CBPictureCell" owner:nil options:nil] objectAtIndex:0];
     
     //Use the cell
-    if ([[self.data  allKeys] count] < 1)
+    if ([self.data count] < 1)
         return cell;
-    cell.titleView.text = [[self.data allKeys] objectAtIndex:indexPath.row];
+    cell.titleView.text = [[self.data objectAtIndex:indexPath.row] objectForKey:@"name"];
     
-    //TODO: Figure out image... Ask Tim.
+    if([[[self.data objectAtIndex:indexPath.row] objectForKey:@"contact"] boolValue])
+        cell.titleView.textColor = [UIColor blackColor];
+    else
+        cell.titleView.textColor = [UIColor grayColor];
     
+    if([[[self.data objectAtIndex:indexPath.row] objectForKey:@"unread"] boolValue])
+        cell.titleView.font = [UIFont boldSystemFontOfSize:17];
+    else
+        cell.titleView.font = [UIFont systemFontOfSize:17];
     return cell;
 }
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    //TODO: Put API calls here?
-    //TODO: Push Conversation screen
-    NSString *nameToTalkTo = [[self.data allKeys] objectAtIndex:indexPath.row];
+    NSString *nameToTalkTo = [[self.data objectAtIndex:indexPath.row] objectForKey:@"name"];
+    
+    //Unbold row
+    for (NSMutableDictionary *nameDict in self.data) {
+        if ([[nameDict objectForKey:@"name"] isEqualToString:nameToTalkTo]) {
+            //set as read
+            [nameDict setObject:[NSNumber numberWithBool:NO] forKey:@"unread"];
+        }
+    }
+    [self.tv reloadData];
+    
     if([self.vcs objectForKey:nameToTalkTo])
         [self.navigationController pushViewController:[self.vcs objectForKey:nameToTalkTo] animated:YES];
     else
@@ -58,7 +73,10 @@
         
         [self.vcs setObject:vc forKey:nameToTalkTo];
         [self.navigationController pushViewController:vc animated:YES];
-    }    
+    }
+    
+    //Unselect row
+    [self.tv deselectRowAtIndexPath:indexPath animated:NO];
 }
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
@@ -97,27 +115,34 @@
     [self.socket disconnect];
     [self.socket connectToHost:@"198.199.72.88" onPort:8080];
 }
-/*- (void) socketIODidDisconnect:(SocketIO *)socket disconnectedWithError:(NSError *)error
-{
-    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
-}
-- (void) socketIO:(SocketIO *)socket failedToConnectWithError:(NSError *)error __attribute__((deprecated));
-{
-    [self.socket connectToHost:@"198.199.72.88" onPort:8080];
-}*/
+
 
 -(void) refreshData
 {
-    [self.socket sendEvent:@"allusers" withData:nil];
+    [self.socket sendEvent:@"getContacts" withData:nil];
 }
 
 -(void)socketIO:(SocketIO *)socket didReceiveEvent:(SocketIOPacket *)packet
 {
-    if([packet.name isEqualToString:@"updateusers"] && [[packet args] count] > 0)
+    if([packet.name isEqualToString:@"updatecontacts"] && [[packet args] count] > 0)
     {
-        self.data = [[[packet args] objectAtIndex:0] mutableCopy];
-        if ([self.data objectForKey:self.ourName])
-            [self.data removeObjectForKey:self.ourName];
+        NSArray *contactNames= [[packet args] objectAtIndex:0];
+        
+        for (NSString *name in contactNames)
+        {
+            //check for duplicate
+            BOOL dup = NO;
+            for (NSDictionary *nameDict in self.data) {
+                if ([[nameDict objectForKey:@"name"] isEqualToString:name]) {
+                    dup = YES;
+                }
+            }
+            if(!dup)
+                [self.data addObject:[@{@"name": name, @"contact":@YES, @"unread":@NO} mutableCopy]];
+        }
+
+        //if ([self.data objectForKey:self.ourName])
+        //    [self.data removeObjectForKey:self.ourName];
         
         [self.tv reloadData];
         return;
@@ -129,6 +154,29 @@
         //First get the name of the sender
         NSString *senderName = [[packet args] objectAtIndex:0];
         NSString *message = [[packet args] objectAtIndex:1];
+        
+        //Change the UITableView
+        BOOL dup = NO;
+        //make sure the sender is in the data var
+        for (NSMutableDictionary *nameDict in self.data) {
+            if ([[nameDict objectForKey:@"name"] isEqualToString:senderName]) {
+                dup = YES;
+                
+                //set unread, but only if we are't in the vc
+                //bad logic...
+                //TODO: fix logic...
+                UIViewController *vc = [self.vcs objectForKey:senderName];
+                if (vc.isViewLoaded && vc.view.window) {}
+                else
+                    [nameDict setObject:[NSNumber numberWithBool:YES] forKey:@"unread"];
+            }
+        }
+        if (!dup) {
+            [self.data addObject:[@{@"name": senderName, @"contact":@NO, @"unread":@YES} mutableCopy]];
+        }
+        //Refresh table
+        [self.tv reloadData];
+        
         //Check for vc
         if ([self.vcs objectForKey:senderName])
             [[self.vcs objectForKey:senderName] messageReceived:message];
@@ -136,7 +184,9 @@
         {
             //Make sure the chat data exists
             if(![self.chatData objectForKey:senderName])
+            {
                 [self.chatData setObject:[NSMutableArray array] forKey:senderName];
+            }
             
             NSBubbleData *sayBubble = [NSBubbleData dataWithText:message date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
             [[self.chatData objectForKey:senderName] addObject:sayBubble];
@@ -145,6 +195,7 @@
     if([packet.name isEqualToString:@"name"])
     {
         self.ourName = [packet.args objectAtIndex:0];
+        [self.socket sendEvent:@"getContacts" withData:nil];
         [self registerName];
     }
 }
@@ -161,6 +212,7 @@
 #pragma mark - UIViewController Methods
 -(void)viewDidLoad
 {
+    self.data = [NSMutableArray array];
     backgroundQueue = dispatch_queue_create("com.adriansarli.bgqueue", NULL);
     self.chatData = [[NSMutableDictionary alloc] init];
     self.ourName = nil;
@@ -181,7 +233,7 @@
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"gear"] style:UIBarButtonItemStyleBordered target:self action:@selector(showInfo:)];
        
     //Contact button; Goes on right
-    UIBarButtonItem *contactButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"group"] style:UIBarButtonItemStyleBordered target:self action:@selector(showContacts:)];
+    UIBarButtonItem *contactButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"group"] style:UIBarButtonItemStyleBordered target:self action:@selector(addContact:)];
     
     self.navigationItem.hidesBackButton = YES;
     self.navigationItem.leftBarButtonItem = settingsButton;
@@ -195,8 +247,8 @@
     }*/
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
-    self.ourName = [[alertView textFieldAtIndex:0] text];
-    [self registerName];
+    [self.socket sendEvent:@"addContact" withData:[[alertView textFieldAtIndex:0] text]];
+    [self.socket sendEvent:@"getContacts" withData:nil];
 }
 - (void)didReceiveMemoryWarning
 {
@@ -205,6 +257,12 @@
     self.vcs = [[NSMutableDictionary alloc] init];
 }
 
+-(IBAction)addContact:(id)sender
+{
+     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add Contact" message:@"Enter the username:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+     alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+     [alert show];
+}
 #pragma mark - Flipside View
 
 - (void)flipsideViewControllerDidFinish:(CBFlipsideViewController *)controller
