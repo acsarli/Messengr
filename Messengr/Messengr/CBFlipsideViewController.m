@@ -7,6 +7,8 @@
 //
 
 #import "CBFlipsideViewController.h"
+#import "CBEULAViewController.h"
+
 @interface CBFlipsideViewController ()
 
 @end
@@ -73,7 +75,11 @@
         
     }
     else if(indexPath.section == 1 && indexPath.row == 0)
-    {}
+    {
+    //Push EULAView
+        CBEULAViewController *evc = [[CBEULAViewController alloc] initWithNibName:@"CBEULAViewController" bundle:nil];
+        [self presentViewController:evc animated:YES completion:nil];
+    }
 }
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     

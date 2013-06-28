@@ -62,6 +62,8 @@
 		0DB2B773177CD0510016E212 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2B772177CD0510016E212 /* Icon.png */; };
 		0DB2B776177CDE4C0016E212 /* CBSearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2B775177CDE4C0016E212 /* CBSearchViewController.m */; };
 		0DB2B778177CDE900016E212 /* SearchView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2B777177CDE900016E212 /* SearchView.xib */; };
+		0DB2B77C177DAEB80016E212 /* CBEULAViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB2B77A177DAEB70016E212 /* CBEULAViewController.m */; };
+		0DB2B77D177DAEB80016E212 /* CBEULAViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DB2B77B177DAEB70016E212 /* CBEULAViewController.xib */; };
 		0DB88BBC1760BA5900019247 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BA91760BA5900019247 /* SBJsonParser.m */; };
 		0DB88BBD1760BA5900019247 /* SBJsonStreamParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BAB1760BA5900019247 /* SBJsonStreamParser.m */; };
 		0DB88BBE1760BA5900019247 /* SBJsonStreamParserAccumulator.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DB88BAD1760BA5900019247 /* SBJsonStreamParserAccumulator.m */; };
@@ -158,6 +160,9 @@
 		0DB2B774177CDE4C0016E212 /* CBSearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBSearchViewController.h; sourceTree = "<group>"; };
 		0DB2B775177CDE4C0016E212 /* CBSearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBSearchViewController.m; sourceTree = "<group>"; };
 		0DB2B777177CDE900016E212 /* SearchView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SearchView.xib; sourceTree = "<group>"; };
+		0DB2B779177DAEB70016E212 /* CBEULAViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBEULAViewController.h; sourceTree = "<group>"; };
+		0DB2B77A177DAEB70016E212 /* CBEULAViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBEULAViewController.m; sourceTree = "<group>"; };
+		0DB2B77B177DAEB70016E212 /* CBEULAViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBEULAViewController.xib; sourceTree = "<group>"; };
 		0DB88BA71760BA5800019247 /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
 		0DB88BA81760BA5900019247 /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		0DB88BA91760BA5900019247 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -305,6 +310,9 @@
 				0D75A8EB175773B800D401DA /* CBFlipsideViewController.h */,
 				0D75A8EC175773B800D401DA /* CBFlipsideViewController.m */,
 				0D75A8F1175773B800D401DA /* CBFlipsideViewController.xib */,
+				0DB2B779177DAEB70016E212 /* CBEULAViewController.h */,
+				0DB2B77A177DAEB70016E212 /* CBEULAViewController.m */,
+				0DB2B77B177DAEB70016E212 /* CBEULAViewController.xib */,
 				0DB2B774177CDE4C0016E212 /* CBSearchViewController.h */,
 				0DB2B775177CDE4C0016E212 /* CBSearchViewController.m */,
 				0DB2B777177CDE900016E212 /* SearchView.xib */,
@@ -443,6 +451,7 @@
 				0DB2B771177CD01F0016E212 /* Icon@2x.png in Resources */,
 				0DB2B773177CD0510016E212 /* Icon.png in Resources */,
 				0DB2B778177CDE900016E212 /* SearchView.xib in Resources */,
+				0DB2B77D177DAEB80016E212 /* CBEULAViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -515,6 +524,7 @@
 				0DB88BC51760BA5900019247 /* SBJsonWriter.m in Sources */,
 				0DB2B76F177A2EE30016E212 /* NSData+Conversion.m in Sources */,
 				0DB2B776177CDE4C0016E212 /* CBSearchViewController.m in Sources */,
+				0DB2B77C177DAEB80016E212 /* CBEULAViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
