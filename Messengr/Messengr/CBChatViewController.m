@@ -108,7 +108,8 @@
         frame.size.height -= kbSize.height;
         bubbleTable.frame = frame;
     }];
-}
+    CGPoint bottomOffset = CGPointMake(0, bubbleTable.contentSize.height - bubbleTable.bounds.size.height);
+    [bubbleTable setContentOffset:bottomOffset animated:YES];}
 
 - (void)keyboardWillBeHidden:(NSNotification*)aNotification
 {
