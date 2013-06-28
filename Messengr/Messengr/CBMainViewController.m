@@ -164,6 +164,8 @@
         //    [self.data removeObjectForKey:self.ourName];
         
         [self.tv reloadData];
+        
+        [self updateChatData];
         return;
     }
     //Make sure this is a chat update and not from us
@@ -205,6 +207,7 @@
             if(![self.chatData objectForKey:senderName])
             {
                 [self.chatData setObject:[NSMutableArray array] forKey:senderName];
+                [self.socket sendEvent:@"chatHistory" withData:senderName];
             }
             
             NSBubbleData *sayBubble = [NSBubbleData dataWithText:message date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
@@ -221,6 +224,32 @@
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:@"searchResults" object:[packet.args objectAtIndex:0]];
     }
+    if([packet.name isEqualToString:@"chatHistory"])
+    {
+        NSString *chatWithName = [packet.args objectAtIndex:0];
+        NSArray *cData = [packet.args objectAtIndex:1];
+        
+        //remove vc
+        [self.vcs removeObjectForKey:chatWithName];
+        
+        if ([self.chatData objectForKey:chatWithName] == nil) {
+            [self.chatData setObject:[NSMutableArray array] forKey:chatWithName];
+        }
+        
+        //add to data
+        for (int i=0; i<([cData count]-1); i+=2) {
+            if([[cData objectAtIndex:i] isEqualToString:self.ourName])
+            {
+                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+1] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeMine];
+                [[self.chatData objectForKey:chatWithName] addObject:sayBubble];
+            }
+            else
+            {
+                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+1] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+                [[self.chatData objectForKey:chatWithName] addObject:sayBubble];
+            }
+        }
+    }
 }
 
 -(void)registerName
@@ -232,6 +261,12 @@
     }
 }
 
+-(void) updateChatData
+{
+    for (NSDictionary *nameDict in self.data) {
+        [self.socket sendEvent:@"chatHistory" withData:[nameDict objectForKey:@"name"]];
+    }
+}
 #pragma mark - UIViewController Methods
 -(void)viewDidLoad
 {

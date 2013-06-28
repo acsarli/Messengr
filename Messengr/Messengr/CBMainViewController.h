@@ -27,5 +27,5 @@
 -(void) registerName;
 
 - (void)getData;
-
+-(void) updateChatData;
 @end
