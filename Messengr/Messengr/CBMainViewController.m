@@ -232,9 +232,7 @@
         //remove vc
         [self.vcs removeObjectForKey:chatWithName];
         
-        if ([self.chatData objectForKey:chatWithName] == nil) {
-            [self.chatData setObject:[NSMutableArray array] forKey:chatWithName];
-        }
+        [self.chatData setObject:[NSMutableArray array] forKey:chatWithName];
         
         //add to data
         for (int i=0; i<([cData count]-1); i+=2) {
