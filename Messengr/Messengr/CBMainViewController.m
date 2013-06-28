@@ -11,6 +11,7 @@
 #import "NSBubbleData.h"
 #import "TMAPIClient.h"
 #import "NSData+Conversion.h"
+#import "CBSearchViewController.h"
 
 @interface CBMainViewController ()
     //Private methods
@@ -82,6 +83,15 @@
 {
     return 1;
 }
+// Override to support editing the table view.
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+    if (editingStyle == UITableViewCellEditingStyleDelete) {
+        //add code here for when you hit delete
+        NSString *nameToDelete = [[self.data objectAtIndex:indexPath.row] objectForKey:@"name"];
+        [self.socket sendEvent:@"removeContact" withData:nameToDelete];
+        [self refreshData];
+    }
+}
 #pragma mark - Data/API Stuff
 - (void)getData
 {
@@ -127,6 +137,15 @@
     if([packet.name isEqualToString:@"updatecontacts"] && [[packet args] count] > 0)
     {
         NSArray *contactNames= [[packet args] objectAtIndex:0];
+        //Remove all contacts not in the new list
+        //first remove all contacts
+        NSMutableArray *toDelete = [[NSMutableArray alloc] init];
+        for (NSMutableDictionary *nameDict in self.data) {
+            if([[nameDict objectForKey:@"contact"] isEqualToNumber:[NSNumber numberWithBool:YES]])
+                [toDelete addObject:nameDict];
+        }
+        
+        [self.data removeObjectsInArray:toDelete];
         
         for (NSString *name in contactNames)
         {
@@ -198,6 +217,10 @@
         [self.socket sendEvent:@"getContacts" withData:nil];
         [self registerName];
     }
+    if([packet.name isEqualToString:@"searchedContacts"])
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"searchResults" object:[packet.args objectAtIndex:0]];
+    }
 }
 
 -(void)registerName
@@ -245,6 +268,7 @@
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
         [alert show];
     }*/
+    [self.socket sendEvent:@"getContacts" withData:nil];
 }
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex{
     [self.socket sendEvent:@"addContact" withData:[[alertView textFieldAtIndex:0] text]];
@@ -259,9 +283,13 @@
 
 -(IBAction)addContact:(id)sender
 {
-     UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add Contact" message:@"Enter the username:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
+    /*UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Add Contact" message:@"Enter the username:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
      alert.alertViewStyle = UIAlertViewStylePlainTextInput;
-     [alert show];
+     [alert show];*/
+    
+    CBSearchViewController *svc = [[CBSearchViewController alloc] initWithNibName:@"SearchView" bundle:nil];
+    svc.socket = self.socket;
+    [self presentViewController:svc animated:YES completion:nil];
 }
 #pragma mark - Flipside View
 

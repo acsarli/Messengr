@@ -33,18 +33,38 @@
     [TMAPIClient sharedInstance].OAuthConsumerKey = @"BGJp5fgJmBPFkyv5XeqhmItNPcxj9AH2pbgJ4S2UuZzRPGOFxS";
     [TMAPIClient sharedInstance].OAuthConsumerSecret = @"TjRO9vo07zk5S7SAeFA9NEVBEo7gead6nOxE6whsNdPO0zb6s8";
     
-    [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
-        if (error != nil) {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Authenticate With Tumblr" message:@"You must allow this app to see your Tumblr account to use it." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [alert show];
-        }
+    [TMAPIClient sharedInstance].OAuthToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    [TMAPIClient sharedInstance].OAuthTokenSecret = [[NSUserDefaults standardUserDefaults] objectForKey:@"secret"];
+    
+    if([TMAPIClient sharedInstance].OAuthToken == nil)
+    {
+        [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
+            if (error != nil) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Please Authenticate With Tumblr" message:@"You must allow this app to see your Tumblr account to use it." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                [alert show];
+            }
+        
+        //store in defaults
+        [[NSUserDefaults standardUserDefaults] setObject:[[TMAPIClient sharedInstance] OAuthToken] forKey:@"token"];
+        [[NSUserDefaults standardUserDefaults] setObject:[[TMAPIClient sharedInstance] OAuthTokenSecret] forKey:@"secret"];
+        
         
         //Name ourselves
         SocketIOCallback cb = ^(id argsData) {
             [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];
         };
         [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
-    }];
+        }];
+    }
+    else
+    {
+        //Name ourselves
+        SocketIOCallback cb = ^(id argsData) {
+            [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];
+        };
+
+        [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
+    }
     
     return YES;
 }

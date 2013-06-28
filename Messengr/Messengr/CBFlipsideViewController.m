@@ -72,6 +72,8 @@
         [self presentViewController:picker animated:YES completion:NULL];
         
     }
+    else if(indexPath.section == 1 && indexPath.row == 0)
+    {}
 }
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
     
