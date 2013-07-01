@@ -36,13 +36,16 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [self.socket sendEvent:@"addContact" withData:[self.data objectAtIndex:indexPath.row]];
+    [self.socket sendEvent:@"getContacts" withData:nil];
     [self dismissModalViewControllerAnimated:YES];
 }
 
 #pragma mark - Search methods
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    [self.socket sendEvent:@"searchContact" withData:searchText];
+    if (searchText.length > 2) {
+        [self.socket sendEvent:@"searchContact" withData:searchText];
+    }
 }
 #pragma mark - Standard methods
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -51,6 +54,7 @@
     if (self) {
         // Custom initialization
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(searchResults:) name:@"searchResults" object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(done:) name:@"goAway" object:nil];
     }
     return self;
 }

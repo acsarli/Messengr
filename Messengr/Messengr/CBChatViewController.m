@@ -13,13 +13,14 @@
 // http://www.publicdomainpictures.net/view-image.php?image=9806
 // http://www.publicdomainpictures.net/view-image.php?image=1358
 //
-
+#import "UIImageView+WebCache.h"
 #import "CBChatViewController.h"
 #import "UIBubbleTableView.h"
 #import "UIBubbleTableViewDataSource.h"
 #import "NSBubbleData.h"
 #import "SocketIO.h"
 #import "SocketIOPacket.h"
+#import "CBMainViewController.h"
 
 @interface CBChatViewController ()
 {
@@ -36,6 +37,8 @@
 {
     [super viewDidLoad];
     //Initialize variables
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(done:) name:@"goAway" object:nil];
+    
     if(self.chatData == nil)
         self.chatData = [[NSMutableArray alloc] init];
        
@@ -48,7 +51,7 @@
     // The line below enables avatar support. Avatar can be specified for each bubble with .avatar property of NSBubbleData.
     // Avatars are enabled for the whole table at once. If particular NSBubbleData misses the avatar, a default placeholder will be set (missingAvatar.png)
     
-    bubbleTable.showAvatars = NO;
+    bubbleTable.showAvatars = YES;
     
     // Uncomment the line below to add "Now typing" bubble
     // Possible values are
@@ -60,13 +63,22 @@
     
     [bubbleTable reloadData];
     
+    UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
+    [bubbleTable addGestureRecognizer:gr];
     // Keyboard events
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];  
     
 }
-
+-(IBAction)dismissKeyboard:(id)sender;
+{
+    [textField resignFirstResponder];
+}
+-(void)done:(id)obj
+{
+    [self.navigationController popToRootViewControllerAnimated:NO];
+}
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.title = self.chatWith;
@@ -97,12 +109,16 @@
 {
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
+    
+    if(self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+        kbSize = CGSizeMake(kbSize.height, kbSize.width);
 
     [UIView animateWithDuration:0.2f animations:^{
         
         CGRect frame = textInputView.frame;
         frame.origin.y -= kbSize.height;
         textInputView.frame = frame;
+        
         
         frame = bubbleTable.frame;
         frame.size.height -= kbSize.height;
@@ -116,23 +132,38 @@
     NSDictionary* info = [aNotification userInfo];
     CGSize kbSize = [[info objectForKey:UIKeyboardFrameBeginUserInfoKey] CGRectValue].size;
     
+    if(self.interfaceOrientation == UIInterfaceOrientationLandscapeRight || self.interfaceOrientation == UIInterfaceOrientationLandscapeLeft)
+        kbSize = CGSizeMake(kbSize.height, kbSize.width);
+    
     [UIView animateWithDuration:0.2f animations:^{
         
         CGRect frame = textInputView.frame;
         frame.origin.y += kbSize.height;
         textInputView.frame = frame;
         
+
+        
         frame = bubbleTable.frame;
         frame.size.height += kbSize.height;
         bubbleTable.frame = frame;
     }];
 }
+- (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    NSLog(@"Touches Began");
+    [textField resignFirstResponder];
+    [super touchesBegan:touches withEvent:event];
+}
+
 
 - (void)messageReceived:(NSString *)string
 {
     bubbleTable.typingBubble = NSBubbleTypingTypeNobody;
     
     NSBubbleData *sayBubble = [NSBubbleData dataWithText:string date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+    sayBubble.avatarImage = [[UIImageView alloc] init];
+    [sayBubble.avatarImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", self.chatWith]]
+                   placeholderImage:[UIImage imageNamed:@"missingAvatar.png"]];
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
 }
@@ -145,6 +176,10 @@
     bubbleTable.typingBubble = NSBubbleTypingTypeNobody;
 
     NSBubbleData *sayBubble = [NSBubbleData dataWithText:textField.text date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeMine];
+    sayBubble.avatarImage = [[UIImageView alloc] init];
+    NSString *urlString = [NSString stringWithFormat: @"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", self.name];
+    [sayBubble.avatarImage setImageWithURL:[NSURL URLWithString: urlString]
+                          placeholderImage:[UIImage imageNamed:@"missingAvatar.png"]];
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
     

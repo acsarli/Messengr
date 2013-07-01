@@ -17,6 +17,8 @@
 @property SocketIO *socketIO;
 @property NSString *name;
 @property NSString *chatWith;
-
 - (void)messageReceived:(NSString *)string;
+@property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeight;
+
+-(IBAction)dismissKeyboard:(id)sender;
 @end

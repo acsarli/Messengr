@@ -15,11 +15,12 @@
 - (void)flipsideViewControllerDidFinish:(CBFlipsideViewController *)controller;
 @end
 
-@interface CBFlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate>
+@interface CBFlipsideViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, MFMailComposeViewControllerDelegate, UIAlertViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView * settingsTable;
 @property (weak, nonatomic) id <CBFlipsideViewControllerDelegate> delegate;
-
+@property UIAlertView *lav;
+@property UIAlertView *dav;
 - (IBAction)done:(id)sender;
 
 @end

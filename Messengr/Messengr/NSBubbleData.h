@@ -25,6 +25,8 @@ typedef enum _NSBubbleType
 @property (readonly, nonatomic, strong) UIView *view;
 @property (readonly, nonatomic) UIEdgeInsets insets;
 @property (nonatomic, strong) UIImage *avatar;
+@property (nonatomic, strong) UIImageView *avatarImage;
+
 @property (nonatomic, strong) NSString *screenName;
 
 - (id)initWithText:(NSString *)text date:(NSDate *)date type:(NSBubbleType)type;

@@ -52,7 +52,6 @@
         
         //Name ourselves
         SocketIOCallback cb = ^(id argsData) {
-            [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];
         };
         [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
         }];
@@ -61,7 +60,6 @@
     {
         //Name ourselves
         SocketIOCallback cb = ^(id argsData) {
-            [self.mainViewController.socket sendEvent:@"getContacts" withData:nil];
         };
 
         [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
@@ -102,6 +100,21 @@
 {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [TMAPIClient sharedInstance].OAuthConsumerKey = @"BGJp5fgJmBPFkyv5XeqhmItNPcxj9AH2pbgJ4S2UuZzRPGOFxS";
+    [TMAPIClient sharedInstance].OAuthConsumerSecret = @"TjRO9vo07zk5S7SAeFA9NEVBEo7gead6nOxE6whsNdPO0zb6s8";
+    
+    [TMAPIClient sharedInstance].OAuthToken = [[NSUserDefaults standardUserDefaults] objectForKey:@"token"];
+    [TMAPIClient sharedInstance].OAuthTokenSecret = [[NSUserDefaults standardUserDefaults] objectForKey:@"secret"];
+    
+    if(![TMAPIClient sharedInstance].OAuthToken == nil)
+    {
+        //Name ourselves
+        SocketIOCallback cb = ^(id argsData) {
+        };
+        
+        [self.mainViewController.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
+    }
+    
 
 }
 

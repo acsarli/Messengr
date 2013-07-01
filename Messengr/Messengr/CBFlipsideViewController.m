@@ -8,6 +8,7 @@
 
 #import "CBFlipsideViewController.h"
 #import "CBEULAViewController.h"
+#import "CBAboutViewController.h"
 
 @interface CBFlipsideViewController ()
 
@@ -32,7 +33,7 @@
     if (indexPath.section == 0 && indexPath.row == 0)
         cell.textLabel.text = @"Log Out";
     if (indexPath.section == 0 && indexPath.row == 1)
-        cell.textLabel.text = @"Delete Messengr Account";
+        cell.textLabel.text = @"Deactivate Messengr Account";
     if (indexPath.section == 1 && indexPath.row == 0)
         cell.textLabel.text = @"View EULA";
     if (indexPath.section == 1 && indexPath.row == 1)
@@ -61,12 +62,23 @@
 {
     //Push next
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    
-    if (indexPath.section == 1 && indexPath.row == 1) {
+    if (indexPath.section == 0 && indexPath.row == 0)
+    {
+        //Confirm
+        self.lav = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to logout?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        [self.lav show];
+    }
+    else if (indexPath.section == 0 && indexPath.row == 1)
+    {
+        //Confirm
+        self.dav = [[UIAlertView alloc] initWithTitle:@"Deactivate account?" message:@"Are you sure you want to deactivate your account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
+        [self.dav show];
+    }
+    else if (indexPath.section == 1 && indexPath.row == 1) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
         
         [picker setSubject:@"Problem with Messengr"];
-        [picker setToRecipients:[NSArray arrayWithObject:@"info@codebeam.com"]];
+        [picker setToRecipients:[NSArray arrayWithObject:@"messengr.app@gmail.com"]];
            
         picker.navigationBar.barStyle = UIBarStyleDefault; // choose your style, unfortunately, Translucent colors behave quirky.
         picker.mailComposeDelegate = self;
@@ -74,11 +86,29 @@
         [self presentViewController:picker animated:YES completion:NULL];
         
     }
+    else if(indexPath.section == 1 && indexPath.row == 2)
+    {
+        //About
+        CBAboutViewController *abc = [[CBAboutViewController alloc] initWithNibName:@"CBAboutViewController" bundle:nil];
+        [self presentModalViewController:abc animated:YES];
+    }
     else if(indexPath.section == 1 && indexPath.row == 0)
     {
     //Push EULAView
         CBEULAViewController *evc = [[CBEULAViewController alloc] initWithNibName:@"CBEULAViewController" bundle:nil];
         [self presentViewController:evc animated:YES completion:nil];
+    }
+}
+-(void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if(alertView == self.lav)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"logout" object:nil];
+    }
+    else
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"deactivate" object:nil];
+
     }
 }
 -(void)mailComposeController:(MFMailComposeViewController*)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError*)error {
