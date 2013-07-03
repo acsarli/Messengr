@@ -16,6 +16,8 @@
 		0D75A8E7175773B800D401DA /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75A8E6175773B800D401DA /* Default-568h@2x.png */; };
 		0D75A8F0175773B800D401DA /* CBMainViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D75A8EE175773B800D401DA /* CBMainViewController.xib */; };
 		0D75A8F3175773B800D401DA /* CBFlipsideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D75A8F1175773B800D401DA /* CBFlipsideViewController.xib */; };
+		0D75F72517846B6400020675 /* bubbleMine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75F72317846B6300020675 /* bubbleMine.png */; };
+		0D75F72617846B6400020675 /* bubbleMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75F72417846B6300020675 /* bubbleMine@2x.png */; };
 		0D9CD8191780523200D03FE1 /* CBContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9CD8171780523200D03FE1 /* CBContactsViewController.m */; };
 		0D9CD81A1780523200D03FE1 /* CBContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CD8181780523200D03FE1 /* CBContactsViewController.xib */; };
 		0D9CD81E1780A5E800D03FE1 /* CBAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9CD81C1780A5E700D03FE1 /* CBAboutViewController.m */; };
@@ -40,8 +42,6 @@
 		0D9CD87F1780CF7400D03FE1 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CD87E1780CF7400D03FE1 /* logo.png */; };
 		0D9D0BA51757A1C500EF5D4C /* CBPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BA41757A1C500EF5D4C /* CBPictureCell.xib */; };
 		0D9D0BB517583CB200EF5D4C /* CBChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BB317583CB200EF5D4C /* CBChatViewController.xib */; };
-		0D9D0BC617583E9B00EF5D4C /* bubbleMine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BBC17583E9B00EF5D4C /* bubbleMine.png */; };
-		0D9D0BC717583E9B00EF5D4C /* bubbleMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BBD17583E9B00EF5D4C /* bubbleMine@2x.png */; };
 		0D9D0BC817583E9B00EF5D4C /* bubbleSomeone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BBE17583E9B00EF5D4C /* bubbleSomeone.png */; };
 		0D9D0BC917583E9B00EF5D4C /* bubbleSomeone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BBF17583E9B00EF5D4C /* bubbleSomeone@2x.png */; };
 		0D9D0BCA17583E9B00EF5D4C /* missingAvatar.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BC017583E9B00EF5D4C /* missingAvatar.png */; };
@@ -138,6 +138,8 @@
 		0D75A8EC175773B800D401DA /* CBFlipsideViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CBFlipsideViewController.m; sourceTree = "<group>"; };
 		0D75A8EF175773B800D401DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CBMainViewController.xib; sourceTree = "<group>"; };
 		0D75A8F2175773B800D401DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CBFlipsideViewController.xib; sourceTree = "<group>"; };
+		0D75F72317846B6300020675 /* bubbleMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleMine.png; sourceTree = "<group>"; };
+		0D75F72417846B6300020675 /* bubbleMine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleMine@2x.png"; sourceTree = "<group>"; };
 		0D9CD8161780523200D03FE1 /* CBContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactsViewController.h; sourceTree = "<group>"; };
 		0D9CD8171780523200D03FE1 /* CBContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactsViewController.m; sourceTree = "<group>"; };
 		0D9CD8181780523200D03FE1 /* CBContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBContactsViewController.xib; sourceTree = "<group>"; };
@@ -194,8 +196,6 @@
 		0D9D0BB217583CB200EF5D4C /* CBChatViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBChatViewController.m; sourceTree = "<group>"; };
 		0D9D0BB317583CB200EF5D4C /* CBChatViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBChatViewController.xib; sourceTree = "<group>"; };
 		0D9D0BB617583CC300EF5D4C /* CBChatViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CBChatViewController.h; sourceTree = "<group>"; };
-		0D9D0BBC17583E9B00EF5D4C /* bubbleMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleMine.png; sourceTree = "<group>"; };
-		0D9D0BBD17583E9B00EF5D4C /* bubbleMine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleMine@2x.png"; sourceTree = "<group>"; };
 		0D9D0BBE17583E9B00EF5D4C /* bubbleSomeone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleSomeone.png; sourceTree = "<group>"; };
 		0D9D0BBF17583E9B00EF5D4C /* bubbleSomeone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleSomeone@2x.png"; sourceTree = "<group>"; };
 		0D9D0BC017583E9B00EF5D4C /* missingAvatar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = missingAvatar.png; sourceTree = "<group>"; };
@@ -418,7 +418,8 @@
 		0D9D0BB117583ABF00EF5D4C /* Bubble View */ = {
 			isa = PBXGroup;
 			children = (
-				0D9D0BBC17583E9B00EF5D4C /* bubbleMine.png */,
+				0D75F72317846B6300020675 /* bubbleMine.png */,
+				0D75F72417846B6300020675 /* bubbleMine@2x.png */,
 				0D9CD84D1780B87300D03FE1 /* MKAnnotationView+WebCache.h */,
 				0D9CD84E1780B87300D03FE1 /* MKAnnotationView+WebCache.m */,
 				0D9CD84F1780B87300D03FE1 /* NSData+GIF.h */,
@@ -448,7 +449,6 @@
 				0D9CD8671780B87500D03FE1 /* UIImage+WebP.m */,
 				0D9CD8681780B87500D03FE1 /* UIImageView+WebCache.h */,
 				0D9CD8691780B87500D03FE1 /* UIImageView+WebCache.m */,
-				0D9D0BBD17583E9B00EF5D4C /* bubbleMine@2x.png */,
 				0D9D0BBE17583E9B00EF5D4C /* bubbleSomeone.png */,
 				0D9D0BBF17583E9B00EF5D4C /* bubbleSomeone@2x.png */,
 				0D9D0BC017583E9B00EF5D4C /* missingAvatar.png */,
@@ -533,8 +533,6 @@
 				0D75A8F3175773B800D401DA /* CBFlipsideViewController.xib in Resources */,
 				0D9D0BA51757A1C500EF5D4C /* CBPictureCell.xib in Resources */,
 				0D9D0BB517583CB200EF5D4C /* CBChatViewController.xib in Resources */,
-				0D9D0BC617583E9B00EF5D4C /* bubbleMine.png in Resources */,
-				0D9D0BC717583E9B00EF5D4C /* bubbleMine@2x.png in Resources */,
 				0D9D0BC817583E9B00EF5D4C /* bubbleSomeone.png in Resources */,
 				0D9D0BC917583E9B00EF5D4C /* bubbleSomeone@2x.png in Resources */,
 				0D9D0BCA17583E9B00EF5D4C /* missingAvatar.png in Resources */,
@@ -558,6 +556,8 @@
 				0D9CD81F1780A5E800D03FE1 /* CBAboutViewController.xib in Resources */,
 				0D9CD8211780ACEB00D03FE1 /* CodeBeamLogo_Tiny.png in Resources */,
 				0D9CD87F1780CF7400D03FE1 /* logo.png in Resources */,
+				0D75F72517846B6400020675 /* bubbleMine.png in Resources */,
+				0D75F72617846B6400020675 /* bubbleMine@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
