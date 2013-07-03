@@ -18,6 +18,7 @@
 		0D75A8F3175773B800D401DA /* CBFlipsideViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D75A8F1175773B800D401DA /* CBFlipsideViewController.xib */; };
 		0D75F72517846B6400020675 /* bubbleMine.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75F72317846B6300020675 /* bubbleMine.png */; };
 		0D75F72617846B6400020675 /* bubbleMine@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75F72417846B6300020675 /* bubbleMine@2x.png */; };
+		0D75F7281784765900020675 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75F7271784765900020675 /* logo.png */; };
 		0D9CD8191780523200D03FE1 /* CBContactsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9CD8171780523200D03FE1 /* CBContactsViewController.m */; };
 		0D9CD81A1780523200D03FE1 /* CBContactsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CD8181780523200D03FE1 /* CBContactsViewController.xib */; };
 		0D9CD81E1780A5E800D03FE1 /* CBAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9CD81C1780A5E700D03FE1 /* CBAboutViewController.m */; };
@@ -39,7 +40,6 @@
 		0D9CD8771780B87500D03FE1 /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9CD8691780B87500D03FE1 /* UIImageView+WebCache.m */; };
 		0D9CD8791780B88600D03FE1 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9CD8781780B88500D03FE1 /* ImageIO.framework */; };
 		0D9CD87B1780B8BE00D03FE1 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D9CD87A1780B8BE00D03FE1 /* MapKit.framework */; };
-		0D9CD87F1780CF7400D03FE1 /* logo.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9CD87E1780CF7400D03FE1 /* logo.png */; };
 		0D9D0BA51757A1C500EF5D4C /* CBPictureCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BA41757A1C500EF5D4C /* CBPictureCell.xib */; };
 		0D9D0BB517583CB200EF5D4C /* CBChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BB317583CB200EF5D4C /* CBChatViewController.xib */; };
 		0D9D0BC817583E9B00EF5D4C /* bubbleSomeone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BBE17583E9B00EF5D4C /* bubbleSomeone.png */; };
@@ -140,6 +140,7 @@
 		0D75A8F2175773B800D401DA /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/CBFlipsideViewController.xib; sourceTree = "<group>"; };
 		0D75F72317846B6300020675 /* bubbleMine.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = bubbleMine.png; sourceTree = "<group>"; };
 		0D75F72417846B6300020675 /* bubbleMine@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "bubbleMine@2x.png"; sourceTree = "<group>"; };
+		0D75F7271784765900020675 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		0D9CD8161780523200D03FE1 /* CBContactsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBContactsViewController.h; sourceTree = "<group>"; };
 		0D9CD8171780523200D03FE1 /* CBContactsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBContactsViewController.m; sourceTree = "<group>"; };
 		0D9CD8181780523200D03FE1 /* CBContactsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBContactsViewController.xib; sourceTree = "<group>"; };
@@ -178,7 +179,6 @@
 		0D9CD8691780B87500D03FE1 /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		0D9CD8781780B88500D03FE1 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		0D9CD87A1780B8BE00D03FE1 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		0D9CD87E1780CF7400D03FE1 /* logo.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = logo.png; sourceTree = "<group>"; };
 		0D9D0BA117579FF700EF5D4C /* CBPictureCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CBPictureCell.h; sourceTree = "<group>"; };
 		0D9D0BA217579FF700EF5D4C /* CBPictureCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CBPictureCell.m; sourceTree = "<group>"; };
 		0D9D0BA41757A1C500EF5D4C /* CBPictureCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CBPictureCell.xib; sourceTree = "<group>"; };
@@ -399,7 +399,6 @@
 		0D75A8D7175773B700D401DA /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				0D9CD87E1780CF7400D03FE1 /* logo.png */,
 				0D9D0BE8175951D200EF5D4C /* gear.png */,
 				0D9D0BE9175951D200EF5D4C /* gear@2x.png */,
 				0D9D0BEA175951D200EF5D4C /* group.png */,
@@ -418,6 +417,7 @@
 		0D9D0BB117583ABF00EF5D4C /* Bubble View */ = {
 			isa = PBXGroup;
 			children = (
+				0D75F7271784765900020675 /* logo.png */,
 				0D75F72317846B6300020675 /* bubbleMine.png */,
 				0D75F72417846B6300020675 /* bubbleMine@2x.png */,
 				0D9CD84D1780B87300D03FE1 /* MKAnnotationView+WebCache.h */,
@@ -555,9 +555,9 @@
 				0D9CD81A1780523200D03FE1 /* CBContactsViewController.xib in Resources */,
 				0D9CD81F1780A5E800D03FE1 /* CBAboutViewController.xib in Resources */,
 				0D9CD8211780ACEB00D03FE1 /* CodeBeamLogo_Tiny.png in Resources */,
-				0D9CD87F1780CF7400D03FE1 /* logo.png in Resources */,
 				0D75F72517846B6400020675 /* bubbleMine.png in Resources */,
 				0D75F72617846B6400020675 /* bubbleMine@2x.png in Resources */,
+				0D75F7281784765900020675 /* logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -344,6 +344,7 @@
     self.navigationItem.leftBarButtonItem = settingsButton;
     self.navigationItem.rightBarButtonItem = contactButton;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
+    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
     
     /*if (self.ourName == nil) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter a name:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
