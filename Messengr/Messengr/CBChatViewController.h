@@ -11,12 +11,15 @@
 #import <UIKit/UIKit.h>
 #import "UIBubbleTableViewDataSource.h"
 #import "SocketIO.h"
-@interface CBChatViewController : UIViewController <UIBubbleTableViewDataSource, SocketIODelegate>
-
+@interface CBChatViewController : UIViewController <UIBubbleTableViewDataSource, SocketIODelegate, UIScrollViewDelegate>
+{
+    int numberOf50Chats;
+}
 @property NSMutableArray *chatData;
 @property SocketIO *socketIO;
 @property NSString *name;
 @property NSString *chatWith;
+@property     IBOutlet UIBubbleTableView *bubbleTable;
 - (void)messageReceived:(NSString *)string;
 @property (weak, nonatomic) IBOutlet NSLayoutConstraint *keyboardHeight;
 

@@ -255,5 +255,9 @@
     
     return cell;
 }
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    [self.bubbleDataSource scrollViewDidEndDecelerating:scrollView];
+}
 
 @end

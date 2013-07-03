@@ -24,14 +24,15 @@
 
 @interface CBChatViewController ()
 {
-    IBOutlet UIBubbleTableView *bubbleTable;
     IBOutlet UIView *textInputView;
     IBOutlet UITextField *textField;
+    UIBubbleTableView *bubbleTable;
 }
 
 @end
 
 @implementation CBChatViewController
+@synthesize bubbleTable;
 
 - (void)viewDidLoad
 {
@@ -63,13 +64,17 @@
     
     [bubbleTable reloadData];
     
+    numberOf50Chats = 1;
+    
+    CGPoint bottomOffset = CGPointMake(0, bubbleTable.contentSize.height - bubbleTable.bounds.size.height);
+    [bubbleTable setContentOffset:bottomOffset animated:NO];
+
     UITapGestureRecognizer *gr = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(dismissKeyboard:)];
     [bubbleTable addGestureRecognizer:gr];
+    
     // Keyboard events
-    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWasShown:) name:UIKeyboardWillShowNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];  
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillBeHidden:) name:UIKeyboardWillHideNotification object:nil];
 }
 -(IBAction)dismissKeyboard:(id)sender;
 {
@@ -82,6 +87,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
     self.navigationItem.title = self.chatWith;
+    CGPoint bottomOffset = CGPointMake(0, bubbleTable.contentSize.height - bubbleTable.bounds.size.height);
+    [bubbleTable setContentOffset:bottomOffset animated:NO];
     [super viewWillAppear:animated];
 
 }
@@ -141,8 +148,6 @@
         frame.origin.y += kbSize.height;
         textInputView.frame = frame;
         
-
-        
         frame = bubbleTable.frame;
         frame.size.height += kbSize.height;
         bubbleTable.frame = frame;
@@ -166,6 +171,9 @@
                    placeholderImage:[UIImage imageNamed:@"missingAvatar.png"]];
     [self.chatData addObject:sayBubble];
     [bubbleTable reloadData];
+    
+    CGPoint bottomOffset = CGPointMake(0, bubbleTable.contentSize.height - bubbleTable.bounds.size.height);
+    [bubbleTable setContentOffset:bottomOffset animated:YES];
 }
 
 #pragma mark - Actions
@@ -189,6 +197,20 @@
     textField.text = @"";
     [textField resignFirstResponder];
     
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView;
+{
+    float scrollViewHeight = scrollView.frame.size.height;
+    float scrollContentSizeHeight = scrollView.contentSize.height;
+    float scrollOffset = scrollView.contentOffset.y;
+    
+    if (scrollOffset == 0)
+    {
+        //Load more old bubbles
+        numberOf50Chats += 1;
+    [self.socketIO sendEvent:@"chatHistory" withData:@{@"name": self.chatWith, @"start": [NSNumber numberWithInt:numberOf50Chats*150], @"stop": [NSNumber numberWithInt:1]}];
+    }
 }
 
 /* NSBubbleData *heyBubble = [NSBubbleData dataWithText:@"Hey, halloween is soon" date:[NSDate dateWithTimeIntervalSinceNow:-300] type:BubbleTypeSomeoneElse];

@@ -14,6 +14,8 @@
 #import "CBSearchViewController.h"
 #import "CBContactsViewController.h"
 #import "UIImageView+WebCache.h"
+#import "CBChatViewController.h"
+#import "UIBubbleTableView.h"
 
 @interface CBMainViewController ()
     //Private methods
@@ -97,14 +99,14 @@
     return 1;
 }
 // Override to support editing the table view.
-/*- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
+- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
         //add code here for when you hit delete
         NSString *nameToDelete = [[self.data objectAtIndex:indexPath.row] objectForKey:@"name"];
-        [self.socket sendEvent:@"removeContact" withData:nameToDelete];
+        [self.socket sendEvent:@"removeConversation" withData:nameToDelete];
         [self refreshData];
     }
-}*/
+}
 #pragma mark - Data/API Stuff
 - (void)getData
 {
@@ -119,12 +121,6 @@
     NSLog(@"Connected");
     [self refreshData];
 
-    
-    [NSTimer scheduledTimerWithTimeInterval:200.0
-                                     target:self
-                                   selector:@selector(refreshData)
-                                   userInfo:nil
-                                    repeats:YES];
     
     if([[TMAPIClient sharedInstance] OAuthToken] != nil)
         [self.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:nil];
@@ -236,7 +232,7 @@
             if(![self.chatData objectForKey:senderName])
             {
                 [self.chatData setObject:[NSMutableArray array] forKey:senderName];
-                [self.socket sendEvent:@"chatHistory" withData:senderName];
+                [self.socket sendEvent:@"chatHistory" withData:@{@"name":senderName, @"start":[NSNumber numberWithInt:150], @"stop":[NSNumber numberWithInt:1]}];
             }
             
             NSBubbleData *sayBubble = [NSBubbleData dataWithText:message date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
@@ -258,31 +254,42 @@
     if([packet.name isEqualToString:@"chatHistory"])
     {
         NSString *chatWithName = [packet.args objectAtIndex:0];
-        NSArray *cData = [packet.args objectAtIndex:1];
+        NSArray *cData = [packet.args objectAtIndex:3];
+        int start = [[packet.args objectAtIndex:1] integerValue];
+        int stop = [[packet.args objectAtIndex:2] integerValue];
         
         //remove vc
-        [self.vcs removeObjectForKey:chatWithName];
-        
+        //[self.vcs removeObjectForKey:chatWithName];
         [self.chatData setObject:[NSMutableArray array] forKey:chatWithName];
         
+        
+        //TODO: Add receiving of additional history
         //add to data
-        for (int i=0; i<([cData count]-1); i+=2) {
-            if([[cData objectAtIndex:i] isEqualToString:self.ourName])
+        for (int i=0; i<([cData count]-2); i+=3) {
+            double iv = [[cData objectAtIndex:i] doubleValue];
+            NSTimeInterval t = floor(iv/1000);
+            NSDate *d = [NSDate dateWithTimeIntervalSince1970:t];
+            if([[cData objectAtIndex:i+1] isEqualToString:self.ourName])
             {
-                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+1] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeMine];
+                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+2] date:d type:BubbleTypeMine];
                 sayBubble.avatarImage = [[UIImageView alloc] init];
                 [sayBubble.avatarImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", self.ourName]]
                                       placeholderImage:[UIImage imageNamed:@"missingAvatar.png"]];
-                [[self.chatData objectForKey:chatWithName] addObject:sayBubble];
+                [[self.chatData objectForKey:chatWithName] insertObject:sayBubble atIndex:0];
             }
             else
             {
-                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+1] date:[NSDate dateWithTimeIntervalSinceNow:0] type:BubbleTypeSomeoneElse];
+                NSBubbleData *sayBubble = [NSBubbleData dataWithText:[cData objectAtIndex:i+2] date:d type:BubbleTypeSomeoneElse];
                 sayBubble.avatarImage = [[UIImageView alloc] init];
-                [sayBubble.avatarImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", [cData objectAtIndex:i]]]
+                [sayBubble.avatarImage setImageWithURL:[NSURL URLWithString:[NSString stringWithFormat: @"http://api.tumblr.com/v2/blog/%@.tumblr.com/avatar", [cData objectAtIndex:i+1]]]
                                       placeholderImage:[UIImage imageNamed:@"missingAvatar.png"]];
                 [[self.chatData objectForKey:chatWithName] addObject:sayBubble];
             }
+        }
+        if([self.vcs objectForKey:chatWithName])
+        {
+            [(CBChatViewController *)[self.vcs objectForKey:chatWithName] setChatData:[self.chatData objectForKey:chatWithName]];
+            [[(CBChatViewController *)[self.vcs objectForKey:chatWithName] bubbleTable] reloadData];
         }
     }
 }
@@ -299,13 +306,13 @@
 -(void) updateChatData
 {
     for (NSDictionary *nameDict in self.data) {
-        [self.socket sendEvent:@"chatHistory" withData:[nameDict objectForKey:@"name"]];
+        [self.socket sendEvent:@"chatHistory" withData:@{@"name":[nameDict objectForKey:@"name"], @"start":[NSNumber numberWithInt:150], @"stop":[NSNumber numberWithInt:1]}];
     }
 }
 #pragma mark - UIViewController Methods
 -(void)viewDidLoad
 {
-    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x547893);
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x445a75);
     self.data = [NSMutableArray array];
     backgroundQueue = dispatch_queue_create("com.adriansarli.bgqueue", NULL);
     self.chatData = [[NSMutableDictionary alloc] init];

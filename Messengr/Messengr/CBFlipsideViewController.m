@@ -124,6 +124,7 @@
     
     UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(done:)];
     self.navigationItem.title = @"Settings";
+    self.navigationController.navigationBar.tintColor = UIColorFromRGB(0x445a75);
     [self.navigationItem setLeftBarButtonItem:doneButton];
 }
 
