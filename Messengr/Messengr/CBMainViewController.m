@@ -113,7 +113,7 @@
     //Connect to server
     self.socket = [[SocketIO alloc] initWithDelegate:self];
     ///'self.socketIO.useSecure = YES;
-    [self.socket connectToHost:@"198.199.117.127" onPort:8080];
+    [self.socket connectToHost:@"MSSGR60912.COM" onPort:8080];
 
 }
 - (void) socketIODidConnect:(SocketIO *)socket;
@@ -137,7 +137,7 @@
 - (void) reconnect {
     [NSThread sleepForTimeInterval:1];
     [self.socket disconnect];
-    [self.socket connectToHost:@" 198.199.117.127" onPort:8080];
+    [self.socket connectToHost:@" MSSGR60912.COM" onPort:8080];
 }
 
 
@@ -412,7 +412,7 @@
             [alert show];
         }
         
-        [self.socket connectToHost:@"198.199.117.127" onPort:8080];
+        [self.socket connectToHost:@"MSSGR60912.COM" onPort:8080];
 
         //store in defaults
         [[NSUserDefaults standardUserDefaults] setObject:[[TMAPIClient sharedInstance] OAuthToken] forKey:@"token"];
