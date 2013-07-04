@@ -324,6 +324,14 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deactivate) name:@"deactivate" object:nil];
 
 }
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
+{
+    self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
+    CGRect f = self.navigationItem.titleView.frame;
+    f.size.height = 38;
+    self.navigationItem.titleView.frame = f;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
