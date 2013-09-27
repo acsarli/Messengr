@@ -319,10 +319,40 @@
     self.ourName = nil;
     self.vcs = [[NSMutableDictionary alloc] init];
     [self getData]; //Only call this once,please!
+    
+    //Get the data
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Data.plist"];
+    NSString *cDataPath = [documentsDirectory stringByAppendingPathComponent:@"cData.plist"];
+    
+    NSMutableArray *a = [NSMutableArray arrayWithContentsOfFile:dataPath];
+    if (a != nil)
+        self.data = a;
+    
+    NSMutableDictionary *storedict = [NSMutableDictionary dictionaryWithContentsOfFile:cDataPath];
+    //Store the chat data
+    for(NSString *key in storedict)
+    {
+        NSArray *cData = [storedict objectForKey:key];
+        NSMutableArray *newArray = [NSMutableArray array];
+        for(NSDictionary *d in cData)
+        {
+            NSTimeInterval t = [[d objectForKey:@"date"] doubleValue];
+            NSBubbleType type = ([[d objectForKey:@"type"] isEqualToString:@"me"]?BubbleTypeMine : BubbleTypeSomeoneElse);
+            NSBubbleData *nD = [[NSBubbleData alloc] initWithText:[d objectForKey:@"text"] date:[NSDate dateWithTimeIntervalSince1970:t] type:type];
+            [newArray addObject:nD];
+        }
+        [storedict setObject:newArray forKey:key];
+    }
+    
+    if(storedict != nil)
+        self.chatData = storedict;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(beginChat:) name:@"beginChat" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(logout) name:@"logout" object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deactivate) name:@"deactivate" object:nil];
-
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contactsFTumblr) name:@"contactsFTumblr" object:nil];
 }
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation duration:(NSTimeInterval)duration
 {
@@ -353,7 +383,9 @@
     self.navigationItem.rightBarButtonItem = contactButton;
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo.png"]];
     self.navigationItem.titleView.contentMode = UIViewContentModeScaleAspectFit;
-    
+    CGRect f = self.navigationItem.titleView.frame;
+    f.size.height = 38;
+    self.navigationItem.titleView.frame = f;
     /*if (self.ourName == nil) {
         UIAlertView * alert = [[UIAlertView alloc] initWithTitle:@"Alert" message:@"Enter a name:" delegate:self cancelButtonTitle:@"Ok" otherButtonTitles:nil];
         alert.alertViewStyle = UIAlertViewStylePlainTextInput;
@@ -409,10 +441,16 @@
     [self.socket sendEvent:@"deactivate" withData:nil];
     [self relogin];
 }
+-(void) contactsFTumblr
+{
+    [self.socket sendEvent:@"contactsFTumblr" withData:nil];
+    [self.socket sendEvent:@"getContacts" withData:nil];
+}
 -(void)relogin
 {    
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"token"];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"secret"];
+    //[[UIApplication sharedApplication] openURL:[NSURL URLWithString:@"http://tumblr.com/logout"]];
     
     [[TMAPIClient sharedInstance] authenticate:@"messengr" callback:^(NSError *error) {
         if (error != nil) {
@@ -433,5 +471,39 @@
         [self.socket sendEvent:@"authenticate" withData:@{@"key": [[TMAPIClient sharedInstance] OAuthToken], @"secret":[[TMAPIClient sharedInstance] OAuthTokenSecret]} andAcknowledge:cb];
     }];
     
+}
+
+-(void) viewWillDisappear:(BOOL)animated
+{
+    //Store the data
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"Data.plist"];
+    NSString *cDataPath = [documentsDirectory stringByAppendingPathComponent:@"cData.plist"];
+
+    [self.data writeToFile:dataPath atomically:YES];
+    
+    NSMutableDictionary *storedict = [NSMutableDictionary dictionary];
+    //Store the chat data
+    for(NSString *key in self.chatData)
+    {
+        NSArray *cData = [self.chatData objectForKey:key];
+        NSMutableArray *newArray = [NSMutableArray array];
+        for(NSBubbleData *d in cData)
+        {
+            NSMutableDictionary *nD = [NSMutableDictionary dictionary];
+            
+            if(d.type == NSBubbleTypingTypeMe)
+                [nD setObject:@"me" forKey:@"type"];
+            else
+                [nD setObject:@"you" forKey:@"type"];
+            
+            [nD setObject:((UILabel *)d.view).text forKey:@"text"];
+            [nD setObject:[NSString stringWithFormat:@"%lf", [d.date timeIntervalSince1970]] forKey:@"date"];
+            [newArray addObject:nD];
+        }
+        [storedict setObject:newArray forKey:key];
+    }
+    [storedict writeToFile:cDataPath atomically:YES];
 }
 @end

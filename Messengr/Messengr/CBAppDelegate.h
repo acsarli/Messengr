@@ -17,5 +17,8 @@
 @property (strong, nonatomic) CBMainViewController *mainViewController;
 @property (strong, nonatomic) UINavigationController *navController;
 
+@property (strong, nonatomic) NSString *token;
+@property (strong, nonatomic) NSString *secret;
+
 
 @end

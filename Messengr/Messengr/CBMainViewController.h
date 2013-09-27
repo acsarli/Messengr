@@ -28,4 +28,5 @@
 
 - (void)getData;
 -(void) updateChatData;
+-(void) contactsFTumblr;
 @end

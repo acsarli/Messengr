@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		0D0BF7D6175F4D94000FE0F9 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D0BF7D5175F4D94000FE0F9 /* MessageUI.framework */; };
+		0D1C5A0F17E1668C00ABE6DE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D75A8E4175773B800D401DA /* Default@2x.png */; };
+		0D1C5A1117E166BB00ABE6DE /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1C5A1017E166BB00ABE6DE /* Default@2x.png */; };
+		0D1C5A1317E1670600ABE6DE /* RetinaIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D1C5A1217E1670600ABE6DE /* RetinaIcon@2x.png */; };
 		0D75A8D1175773B700D401DA /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75A8D0175773B700D401DA /* UIKit.framework */; };
 		0D75A8D3175773B700D401DA /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75A8D2175773B700D401DA /* Foundation.framework */; };
 		0D75A8D5175773B700D401DA /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0D75A8D4175773B700D401DA /* CoreGraphics.framework */; };
@@ -51,12 +54,18 @@
 		0D9D0BCE17583E9B00EF5D4C /* typingSomeone.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BC417583E9B00EF5D4C /* typingSomeone.png */; };
 		0D9D0BCF17583E9B00EF5D4C /* typingSomeone@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BC517583E9B00EF5D4C /* typingSomeone@2x.png */; };
 		0D9D0BE317594B1700EF5D4C /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BE217594B1700EF5D4C /* Default.png */; };
-		0D9D0BE517594B3800EF5D4C /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BE417594B3700EF5D4C /* Default@2x.png */; };
 		0D9D0BE717594B4E00EF5D4C /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BE617594B4E00EF5D4C /* Default-568h@2x.png */; };
 		0D9D0BEC175951D200EF5D4C /* gear.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BE8175951D200EF5D4C /* gear.png */; };
 		0D9D0BED175951D200EF5D4C /* gear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BE9175951D200EF5D4C /* gear@2x.png */; };
 		0D9D0BEE175951D200EF5D4C /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BEA175951D200EF5D4C /* group.png */; };
 		0D9D0BEF175951D200EF5D4C /* group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 0D9D0BEB175951D200EF5D4C /* group@2x.png */; };
+		0DAA314917C55A9A00E07B95 /* LoginWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA314417C55A9A00E07B95 /* LoginWebViewController.m */; };
+		0DAA314A17C55A9A00E07B95 /* NSString+URLEncoding.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA314617C55A9A00E07B95 /* NSString+URLEncoding.m */; };
+		0DAA314B17C55A9A00E07B95 /* OAuth1Controller.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA314817C55A9A00E07B95 /* OAuth1Controller.m */; };
+		0DAA315117C569E500E07B95 /* Login.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0DAA315017C569E500E07B95 /* Login.xib */; };
+		0DAA315817C56C5700E07B95 /* Base64Transcoder.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA315217C56C5700E07B95 /* Base64Transcoder.c */; };
+		0DAA315917C56C5700E07B95 /* hmac.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA315417C56C5700E07B95 /* hmac.c */; };
+		0DAA315A17C56C5700E07B95 /* sha1.c in Sources */ = {isa = PBXBuildFile; fileRef = 0DAA315617C56C5700E07B95 /* sha1.c */; };
 		0DAEF1C2175F653200C2EBBC /* base64.c in Sources */ = {isa = PBXBuildFile; fileRef = 0D0BF7E3175F61C2000FE0F9 /* base64.c */; };
 		0DAEF1C3175F653200C2EBBC /* NSData+SRB64Additions.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0BF7E6175F61C2000FE0F9 /* NSData+SRB64Additions.m */; };
 		0DAEF1C4175F653200C2EBBC /* SRWebSocket.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D0BF7E9175F61C2000FE0F9 /* SRWebSocket.m */; };
@@ -119,6 +128,8 @@
 		0D0BF7E7175F61C2000FE0F9 /* SocketRocket-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "SocketRocket-Prefix.pch"; sourceTree = "<group>"; };
 		0D0BF7E8175F61C2000FE0F9 /* SRWebSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SRWebSocket.h; sourceTree = "<group>"; };
 		0D0BF7E9175F61C2000FE0F9 /* SRWebSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SRWebSocket.m; sourceTree = "<group>"; };
+		0D1C5A1017E166BB00ABE6DE /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
+		0D1C5A1217E1670600ABE6DE /* RetinaIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RetinaIcon@2x.png"; sourceTree = "<group>"; };
 		0D75A8CD175773B700D401DA /* Messengr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messengr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0D75A8D0175773B700D401DA /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		0D75A8D2175773B700D401DA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -205,12 +216,24 @@
 		0D9D0BC417583E9B00EF5D4C /* typingSomeone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = typingSomeone.png; sourceTree = "<group>"; };
 		0D9D0BC517583E9B00EF5D4C /* typingSomeone@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "typingSomeone@2x.png"; sourceTree = "<group>"; };
 		0D9D0BE217594B1700EF5D4C /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
-		0D9D0BE417594B3700EF5D4C /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		0D9D0BE617594B4E00EF5D4C /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		0D9D0BE8175951D200EF5D4C /* gear.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear.png; sourceTree = "<group>"; };
 		0D9D0BE9175951D200EF5D4C /* gear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gear@2x.png"; sourceTree = "<group>"; };
 		0D9D0BEA175951D200EF5D4C /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
 		0D9D0BEB175951D200EF5D4C /* group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group@2x.png"; sourceTree = "<group>"; };
+		0DAA314317C55A9900E07B95 /* LoginWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LoginWebViewController.h; sourceTree = "<group>"; };
+		0DAA314417C55A9A00E07B95 /* LoginWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LoginWebViewController.m; sourceTree = "<group>"; };
+		0DAA314517C55A9A00E07B95 /* NSString+URLEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+URLEncoding.h"; sourceTree = "<group>"; };
+		0DAA314617C55A9A00E07B95 /* NSString+URLEncoding.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+URLEncoding.m"; sourceTree = "<group>"; };
+		0DAA314717C55A9A00E07B95 /* OAuth1Controller.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OAuth1Controller.h; sourceTree = "<group>"; };
+		0DAA314817C55A9A00E07B95 /* OAuth1Controller.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OAuth1Controller.m; sourceTree = "<group>"; };
+		0DAA315017C569E500E07B95 /* Login.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = Login.xib; sourceTree = "<group>"; };
+		0DAA315217C56C5700E07B95 /* Base64Transcoder.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = Base64Transcoder.c; sourceTree = "<group>"; };
+		0DAA315317C56C5700E07B95 /* Base64Transcoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Base64Transcoder.h; sourceTree = "<group>"; };
+		0DAA315417C56C5700E07B95 /* hmac.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = hmac.c; sourceTree = "<group>"; };
+		0DAA315517C56C5700E07B95 /* hmac.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = hmac.h; sourceTree = "<group>"; };
+		0DAA315617C56C5700E07B95 /* sha1.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = sha1.c; sourceTree = "<group>"; };
+		0DAA315717C56C5700E07B95 /* sha1.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sha1.h; sourceTree = "<group>"; };
 		0DAEF1D4175F665A00C2EBBC /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
 		0DAEF1D6175F666400C2EBBC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		0DAEF1D8175F667000C2EBBC /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -320,6 +343,8 @@
 		0D75A8C4175773B700D401DA = {
 			isa = PBXGroup;
 			children = (
+				0D1C5A1217E1670600ABE6DE /* RetinaIcon@2x.png */,
+				0D1C5A1017E166BB00ABE6DE /* Default@2x.png */,
 				0D9CD87A1780B8BE00D03FE1 /* MapKit.framework */,
 				0D9CD8781780B88500D03FE1 /* ImageIO.framework */,
 				0DB2B772177CD0510016E212 /* Icon.png */,
@@ -329,8 +354,13 @@
 				0DAEF1D4175F665A00C2EBBC /* libicucore.dylib */,
 				0D0BF7D5175F4D94000FE0F9 /* MessageUI.framework */,
 				0D9D0BE617594B4E00EF5D4C /* Default-568h@2x.png */,
-				0D9D0BE417594B3700EF5D4C /* Default@2x.png */,
 				0D9D0BE217594B1700EF5D4C /* Default.png */,
+				0DAA315217C56C5700E07B95 /* Base64Transcoder.c */,
+				0DAA315317C56C5700E07B95 /* Base64Transcoder.h */,
+				0DAA315417C56C5700E07B95 /* hmac.c */,
+				0DAA315517C56C5700E07B95 /* hmac.h */,
+				0DAA315617C56C5700E07B95 /* sha1.c */,
+				0DAA315717C56C5700E07B95 /* sha1.h */,
 				0D0BF7D7175F60E1000FE0F9 /* Socket-IO */,
 				0D75A8D6175773B700D401DA /* Messengr */,
 				0D75A8CF175773B700D401DA /* Frameworks */,
@@ -361,6 +391,13 @@
 		0D75A8D6175773B700D401DA /* Messengr */ = {
 			isa = PBXGroup;
 			children = (
+				0DAA315017C569E500E07B95 /* Login.xib */,
+				0DAA314317C55A9900E07B95 /* LoginWebViewController.h */,
+				0DAA314417C55A9A00E07B95 /* LoginWebViewController.m */,
+				0DAA314517C55A9A00E07B95 /* NSString+URLEncoding.h */,
+				0DAA314617C55A9A00E07B95 /* NSString+URLEncoding.m */,
+				0DAA314717C55A9A00E07B95 /* OAuth1Controller.h */,
+				0DAA314817C55A9A00E07B95 /* OAuth1Controller.m */,
 				0DB2B76D177A2EE30016E212 /* NSData+Conversion.h */,
 				0DB2B76E177A2EE30016E212 /* NSData+Conversion.m */,
 				0D9D0BB117583ABF00EF5D4C /* Bubble View */,
@@ -542,7 +579,6 @@
 				0D9D0BCE17583E9B00EF5D4C /* typingSomeone.png in Resources */,
 				0D9D0BCF17583E9B00EF5D4C /* typingSomeone@2x.png in Resources */,
 				0D9D0BE317594B1700EF5D4C /* Default.png in Resources */,
-				0D9D0BE517594B3800EF5D4C /* Default@2x.png in Resources */,
 				0D9D0BE717594B4E00EF5D4C /* Default-568h@2x.png in Resources */,
 				0D9D0BEC175951D200EF5D4C /* gear.png in Resources */,
 				0D9D0BED175951D200EF5D4C /* gear@2x.png in Resources */,
@@ -558,6 +594,10 @@
 				0D75F72517846B6400020675 /* bubbleMine.png in Resources */,
 				0D75F72617846B6400020675 /* bubbleMine@2x.png in Resources */,
 				0D75F7281784765900020675 /* logo.png in Resources */,
+				0DAA315117C569E500E07B95 /* Login.xib in Resources */,
+				0D1C5A0F17E1668C00ABE6DE /* Default@2x.png in Resources */,
+				0D1C5A1117E166BB00ABE6DE /* Default@2x.png in Resources */,
+				0D1C5A1317E1670600ABE6DE /* RetinaIcon@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,6 +687,12 @@
 				0D9CD8751780B87500D03FE1 /* UIImage+MultiFormat.m in Sources */,
 				0D9CD8761780B87500D03FE1 /* UIImage+WebP.m in Sources */,
 				0D9CD8771780B87500D03FE1 /* UIImageView+WebCache.m in Sources */,
+				0DAA314917C55A9A00E07B95 /* LoginWebViewController.m in Sources */,
+				0DAA314A17C55A9A00E07B95 /* NSString+URLEncoding.m in Sources */,
+				0DAA314B17C55A9A00E07B95 /* OAuth1Controller.m in Sources */,
+				0DAA315817C56C5700E07B95 /* Base64Transcoder.c in Sources */,
+				0DAA315917C56C5700E07B95 /* hmac.c in Sources */,
+				0DAA315A17C56C5700E07B95 /* sha1.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -746,11 +792,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEF057EC58104D97A5467736 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Messengr/Messengr-Prefix.pch";
 				INFOPLIST_FILE = "Messengr/Messengr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "35052E21-D355-4E7A-B66B-0F2549F1C32B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "35052E21-D355-4E7A-B66B-0F2549F1C32B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -759,11 +809,15 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = BEF057EC58104D97A5467736 /* Pods.xcconfig */;
 			buildSettings = {
+				CODE_SIGN_IDENTITY = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Adrian Sarli (UHEP83TK5G)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Messengr/Messengr-Prefix.pch";
 				INFOPLIST_FILE = "Messengr/Messengr-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "35052E21-D355-4E7A-B66B-0F2549F1C32B";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "35052E21-D355-4E7A-B66B-0F2549F1C32B";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

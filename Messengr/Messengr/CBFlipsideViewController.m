@@ -20,26 +20,32 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if (section == 0)
-        return 2;
+        return 3;
     else
         return 3;
 }
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"stvc"];
+    UITableViewCell *cell;
+    cell = [tableView dequeueReusableCellWithIdentifier:@"stvc"];
     if (cell == nil)
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"stvc"];
+
     
     if (indexPath.section == 0 && indexPath.row == 0)
         cell.textLabel.text = @"Log Out";
     if (indexPath.section == 0 && indexPath.row == 1)
         cell.textLabel.text = @"Deactivate Messengr Account";
+    if (indexPath.section == 0 && indexPath.row == 2)
+        cell.textLabel.text = @"Import Contacts from Tumblr";
+    
     if (indexPath.section == 1 && indexPath.row == 0)
         cell.textLabel.text = @"View EULA";
     if (indexPath.section == 1 && indexPath.row == 1)
         cell.textLabel.text = @"Report Problem";
     if (indexPath.section == 1 && indexPath.row == 2)
         cell.textLabel.text = @"About";
+    
     
         return cell;
 }
@@ -73,6 +79,10 @@
         //Confirm
         self.dav = [[UIAlertView alloc] initWithTitle:@"Deactivate account?" message:@"Are you sure you want to deactivate your account?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Ok", nil];
         [self.dav show];
+    }
+    else if (indexPath.section == 0 && indexPath.row == 2)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"contactsFTumblr" object:nil];
     }
     else if (indexPath.section == 1 && indexPath.row == 1) {
         MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
